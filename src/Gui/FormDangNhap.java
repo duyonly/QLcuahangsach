@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import Nhanvien.NhanvienModel;
 public class FormDangNhap {
     JFrame main;
     JTextField txtUser;
@@ -90,12 +91,24 @@ public void DangNhap(){
    tk.setMatKhau(pass);
    TaiKhoanBus Bus=new TaiKhoanBus();
    boolean ketQua=Bus.dangNhap(tk);
-   if(ketQua){
-    JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);//
-    new TrangChu();
-
-    main.dispose();
-   }else{
+//   if(ketQua){
+//    JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);//
+//    new TrangChu();
+//    main.dispose();
+//   }
+//
+ //
+ //
+   //
+    if(ketQua){
+        JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+        // Tạo nhân viên đăng nhập
+        Nhanvien.NhanvienModel nv = new Nhanvien.NhanvienModel();
+        nv.setChucVu("Admin");
+        new TrangChu(nv);
+        main.dispose();
+    }
+   else{
     JOptionPane.showMessageDialog(null, "Tên Không Tồn Tại", "Thông Báo", JOptionPane.ERROR_MESSAGE);
    }
 }
@@ -103,3 +116,4 @@ public void QuenMK(){
     new FormQuenMK();
 }
 }
+

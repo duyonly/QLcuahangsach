@@ -1,11 +1,16 @@
 package Gui;
+import Nhanvien.NhanvienModel;
+import Nhanvien.NhanvienGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import Thongke.ThongkeGUI;
 public class TrangChu extends JFrame{
+    private NhanvienModel nhanVien;
     JPanel panelMenu,panelContent,panelTop;
     JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat;
-    public TrangChu(){
+    public TrangChu(NhanvienModel nhanVien){
+        this.nhanVien = nhanVien;
         setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG SÁCH");
         setSize(1000,600);
         setLocationRelativeTo(null);
@@ -16,12 +21,14 @@ public class TrangChu extends JFrame{
         panelMenu.setPreferredSize(new Dimension(200,0));
         panelMenu.setBackground(new Color(33,150,243));
         panelMenu.setLayout(new GridLayout(7,1,10,10));
+
         btnSach = new JButton("Sách");
         btnKhachHang = new JButton("Khách Hàng");
         btnNhanVien = new JButton("Nhân Viên");
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
         btnDangXuat = new JButton("Đăng Xuất");
+
         panelMenu.add(new JLabel("MENU",JLabel.CENTER));
         panelMenu.add(btnSach);
         panelMenu.add(btnKhachHang);
@@ -29,6 +36,10 @@ public class TrangChu extends JFrame{
         panelMenu.add(btnHoaDon);
         panelMenu.add(btnThongKe);
         panelMenu.add(btnDangXuat);
+
+        if (!nhanVien.getChucVu().equalsIgnoreCase("Admin")) {
+            btnNhanVien.setVisible(false);
+        }
         btnDangXuat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -36,12 +47,33 @@ public class TrangChu extends JFrame{
                 dispose();
             }
         });
+        //phan nhanvien
+        btnNhanVien.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.setLayout(new BorderLayout());
+            panelContent.add(new NhanvienGUI(nhanVien), BorderLayout.CENTER);
+            panelContent.revalidate();
+            panelContent.repaint();
+        });
+        //phan thongke
+        btnThongKe.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.setLayout(new BorderLayout());
+            panelContent.add(new ThongkeGUI(), BorderLayout.CENTER);
+            panelContent.revalidate();
+            panelContent.repaint();
+        });
         //phần trên
         panelTop=new JPanel();
         panelTop.setPreferredSize(new Dimension(0,60));
         panelTop.setBackground(Color.WHITE);
-        JLabel lblTitle=new JLabel("TRANG CHỦ - QUẢN LÝ CỬA HÀNG SÁCH");
-        lblTitle.setFont(new Font("Arial",Font.BOLD,20));
+
+       JLabel lblTitle=new JLabel("TRANG CHỦ - QUẢN LÝ CỬA HÀNG SÁCH");
+       lblTitle.setFont(new Font("Arial",Font.BOLD,20));
+
+
+        panelTop.add(lblTitle);
+
         panelContent =new JPanel();
         panelContent.setLayout(new GridLayout(2,2,20,20));
         panelContent.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
@@ -58,7 +90,7 @@ public class TrangChu extends JFrame{
         
         
     }
-//hàm tạo thẻ thốn kế
+//hàm tạo thẻ thống kế
     private JPanel createCard(String title,String value ){
         JPanel card = new JPanel();
         card.setBackground(new Color(240, 240, 240));
@@ -74,7 +106,6 @@ public class TrangChu extends JFrame{
 
         card.add(lblTitle, BorderLayout.NORTH);
         card.add(lblValue, BorderLayout.CENTER);
-
         return card;
     }
 }
