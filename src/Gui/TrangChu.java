@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 public class TrangChu extends JFrame{
     JPanel panelMenu,panelContent,panelTop;
-    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat;
+    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnNhaCungCap;
     public TrangChu(){
         setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG SÁCH");
         setSize(1000,600);
@@ -15,9 +15,10 @@ public class TrangChu extends JFrame{
         panelMenu=new JPanel();
         panelMenu.setPreferredSize(new Dimension(200,0));
         panelMenu.setBackground(new Color(33,150,243));
-        panelMenu.setLayout(new GridLayout(7,1,10,10));
+        panelMenu.setLayout(new GridLayout(8,1,10,10));
         btnSach = new JButton("Sách");
         btnKhachHang = new JButton("Khách Hàng");
+        btnNhaCungCap = new JButton("Nhà Cung Cấp");
         btnNhanVien = new JButton("Nhân Viên");
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
@@ -25,6 +26,7 @@ public class TrangChu extends JFrame{
         panelMenu.add(new JLabel("MENU",JLabel.CENTER));
         panelMenu.add(btnSach);
         panelMenu.add(btnKhachHang);
+        panelMenu.add(btnNhaCungCap);
         panelMenu.add(btnNhanVien);
         panelMenu.add(btnHoaDon);
         panelMenu.add(btnThongKe);
@@ -34,6 +36,18 @@ public class TrangChu extends JFrame{
             public void actionPerformed(ActionEvent e){
                 new FormDangNhap();
                 dispose();
+            }
+        });
+        btnKhachHang.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new FormKhachHang();
+            }
+        });
+        btnNhaCungCap.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new FormNhaCungCap();
             }
         });
         //phần trên
