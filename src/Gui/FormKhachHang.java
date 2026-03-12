@@ -46,9 +46,11 @@ public class FormKhachHang extends JFrame {
         JButton btnAdd = new JButton("Thêm");
         JButton btnEdit = new JButton("Sửa");
         JButton btnDelete = new JButton("Xóa");
+        JButton btnView = new JButton("Xem chi tiết");
         controls.add(btnAdd);
         controls.add(btnEdit);
         controls.add(btnDelete);
+        controls.add(btnView);
         add(controls, BorderLayout.SOUTH);
 
         btnSearch.addActionListener(e -> {
@@ -72,6 +74,23 @@ public class FormKhachHang extends JFrame {
             String email = model.getValueAt(idx,4).toString();
             KhachHangDTO k = new KhachHangDTO(ma,ten,diachi,sdt,email);
             openEditDialog(k);
+        });
+
+        btnView.addActionListener(e -> {
+            int idx = table.getSelectedRow();
+            if(idx==-1){
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để xem chi tiết");
+                return;
+            }
+            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
+            KhachHangDTO k = bus.layChiTiet(ma);
+            if(k==null){
+                JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết khách hàng");
+                return;
+            }
+            // open detailed dialog
+            ChiTietKhachHangDialog dlg = new ChiTietKhachHangDialog(this, k);
+            dlg.setVisible(true);
         });
         btnDelete.addActionListener(e -> {
             int idx = table.getSelectedRow();
@@ -130,7 +149,7 @@ public class FormKhachHang extends JFrame {
         }
     }
 
-    private void openEditDialog(KhachHangDTO k){
+    public void openEditDialog(KhachHangDTO k){
         JDialog dlg = new JDialog(this,"Thông tin Khách Hàng",true);
         dlg.setSize(400,300);
         dlg.setLayout(null);

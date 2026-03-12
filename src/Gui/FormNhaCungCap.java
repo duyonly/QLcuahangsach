@@ -44,9 +44,11 @@ public class FormNhaCungCap extends JFrame {
         JButton btnAdd = new JButton("Thêm");
         JButton btnEdit = new JButton("Sửa");
         JButton btnDelete = new JButton("Xóa");
+        JButton btnView = new JButton("Xem chi tiết");
         controls.add(btnAdd);
         controls.add(btnEdit);
         controls.add(btnDelete);
+        controls.add(btnView);
         add(controls, BorderLayout.SOUTH);
 
         btnSearch.addActionListener(e -> {
@@ -70,6 +72,22 @@ public class FormNhaCungCap extends JFrame {
             String email = model.getValueAt(idx,4).toString();
             NhaCungCapDTO n = new NhaCungCapDTO(ma,ten,diachi,sdt,email);
             openEditDialog(n);
+        });
+
+        btnView.addActionListener(e -> {
+            int idx = table.getSelectedRow();
+            if(idx==-1){
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn nhà cung cấp để xem chi tiết");
+                return;
+            }
+            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
+            NhaCungCapDTO n = bus.layChiTiet(ma);
+            if(n==null){
+                JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết nhà cung cấp");
+                return;
+            }
+            ChiTietNhaCungCapDialog dlg = new ChiTietNhaCungCapDialog(this, n);
+            dlg.setVisible(true);
         });
         btnDelete.addActionListener(e -> {
             int idx = table.getSelectedRow();
@@ -128,7 +146,7 @@ public class FormNhaCungCap extends JFrame {
         }
     }
 
-    private void openEditDialog(NhaCungCapDTO n){
+    public void openEditDialog(NhaCungCapDTO n){
         JDialog dlg = new JDialog(this,"Thông tin Nhà Cung Cấp",true);
         dlg.setSize(400,300);
         dlg.setLayout(null);
