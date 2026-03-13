@@ -4,14 +4,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class ChiTietQuyenGUI extends JDialog {
+public class ChiTietNhomQuyenGUI extends JDialog {
     private JTextField txtTenNhom;
     private JTable tableQuyen;
     private DefaultTableModel tableModel;
     private JButton btnLuu, btnHuy;
 
     // Tham số maNhom dùng để sau này lấy dữ liệu từ Database, tạm thời để hiển thị tên
-    public ChiTietQuyenGUI(JFrame parent, String maNhom, String tenNhom) {
+    public ChiTietNhomQuyenGUI(JFrame parent, String maNhom, String tenNhom) {
         super(parent, "Chỉnh sửa nhóm quyền", true); // true = Modal (Không cho click ra ngoài khi đang mở)
         setSize(800, 500);
         setLocationRelativeTo(parent);
@@ -30,7 +30,6 @@ public class ChiTietQuyenGUI extends JDialog {
         // 2. PHẦN GIỮA: Bảng phân quyền (Checkbox)
         String[] columns = {"Danh mục chức năng", "Xem", "Tạo mới", "Cập nhật", "Xoá"};
         
-        // MẸO SWING: Ép kiểu cột thành Boolean để hiện Checkbox
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {

@@ -4,14 +4,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class PanelPhanQuyen extends JPanel {
+public class PhanQuyenGUI extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
     private JButton btnThem, btnSua, btnXoa, btnChiTiet, btnXuatExcel, btnLamMoi;
     private JTextField txtTimKiem;
     private JComboBox<String> cbxTimKiem;
 
-    public PanelPhanQuyen() {
+    public PhanQuyenGUI() {
         setLayout(new BorderLayout(10, 10));
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -46,6 +46,17 @@ public class PanelPhanQuyen extends JPanel {
 
         panelTop.add(panelButtons, BorderLayout.WEST);
         panelTop.add(panelSearch, BorderLayout.EAST);
+
+        // ==========================================
+        // XỬ LÝ SỰ KIỆN NÚT "THÊM"
+        // ==========================================
+        btnThem.addActionListener(e -> {
+            // Lấy reference của main JFrame để làm parent cho JDialog
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            ThemQuyenGUI dialog = new ThemQuyenGUI(parentFrame);
+            dialog.setVisible(true); // Hiển thị Dialog
+        });
+    // ... code hiện tại ...
 
         // 2. KHU VỰC BẢNG DỮ LIỆU (Ở giữa)
         String[] columnNames = {"Mã nhóm quyền", "Tên nhóm quyền"};
@@ -84,7 +95,7 @@ public class PanelPhanQuyen extends JPanel {
                 
                 // Mở cửa sổ Chi tiết
                 JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                ChiTietQuyenGUI dialog = new ChiTietQuyenGUI(parentFrame, maNhom, tenNhom);
+                ChiTietNhomQuyenGUI dialog = new ChiTietNhomQuyenGUI(parentFrame, maNhom, tenNhom);
                 dialog.setVisible(true); // Hiển thị Dialog
             }
         });

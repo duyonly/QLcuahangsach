@@ -47,7 +47,7 @@ public class TrangChu extends JFrame {
         panelTop = new JPanel();
         panelTop.setPreferredSize(new Dimension(0, 60));
         panelTop.setBackground(Color.WHITE);
-        JLabel lblTitle = new JLabel("TRANG CHỦ - HỆ THỐNG QUẢN LÝ");
+        JLabel lblTitle = new JLabel("HỆ THỐNG QUẢN LÝ CỬA HÀNG");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
         panelTop.add(lblTitle);
 
@@ -67,8 +67,8 @@ public class TrangChu extends JFrame {
 
         // 3.2 Thêm các Panel vào CardLayout kèm theo một cái "Tên Khóa" (String)
         panelMainContent.add(panelThongKe, "TrangThongKe");
-        panelMainContent.add(new PanelNhapHang(), "TrangNhapHang");
-        panelMainContent.add(new PanelPhanQuyen(), "TrangPhanQuyen");
+        panelMainContent.add(new NhapHangGUI(), "TrangNhapHang");
+        panelMainContent.add(new PhanQuyenGUI(), "TrangPhanQuyen");
 
         // =========================================================
         // 4. XỬ LÝ SỰ KIỆN CHUYỂN TRANG
