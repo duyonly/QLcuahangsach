@@ -81,4 +81,27 @@ public class ThongkeDao{
         }
         return list;
     }
+    public List<TonkhoModel> getTonKho(){
+        List<TonkhoModel> list = new ArrayList<>();
+        try{
+            Connection con = ConnectDB.getConnection();
+            String sql = """
+            SELECT MaSach, TenSach, SoLuongTon
+            FROM sach
+            ORDER BY SoLuongTon DESC
+        """;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                list.add(new TonkhoModel(
+                        rs.getString("MaSach"),
+                        rs.getString("TenSach"),
+                        rs.getInt("SoLuongTon")
+                ));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

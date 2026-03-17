@@ -22,4 +22,7 @@ public class ThongkeBus {
     public List<ThongkenhanvienModel> getThongKeNhanVien() throws Exception{
         return dao.getThongKeNhanVien();
     }
+    public List<TonkhoModel> getTonKho() throws Exception{
+        return dao.getTonKho();
+    }
 }

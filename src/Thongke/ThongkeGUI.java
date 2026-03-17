@@ -16,7 +16,7 @@ public class ThongkeGUI extends JPanel{
     private JLabel lblLoiNhuan = new JLabel();
     private JTable tableTop = new JTable();
     private JTable tableNV = new JTable();
-
+    private JTable tableTonKho = new JTable();
     public ThongkeGUI(){
         setLayout(new BorderLayout());
         // Panel tổng tiền
@@ -30,6 +30,7 @@ public class ThongkeGUI extends JPanel{
         tab.add("Top Sách", createTopSachPanel());
         tab.add("Nhân viên", createNhanVienPanel());
         tab.add("Biểu đồ", createChartPanel());
+        tab.add("Tồn kho", createTonKhoPanel());
         add(tab, BorderLayout.CENTER);
         loadData();
     }
@@ -71,6 +72,13 @@ public class ThongkeGUI extends JPanel{
         );
         return new ChartPanel(chart);
     }
+    private JPanel createTonKhoPanel(){
+        tableTonKho.setModel(new DefaultTableModel(
+                new String[]{"Mã sách","Tên sách","Tồn kho"},0));
+        return new JPanel(new BorderLayout()) {{
+            add(new JScrollPane(tableTonKho), BorderLayout.CENTER);
+        }};
+    }
     private void loadData(){
         try {
             lblDoanhThu.setText("Doanh thu: " + bus.getTongDoanhThu());
@@ -98,6 +106,31 @@ public class ThongkeGUI extends JPanel{
                         m.getDoanhThu()
                 });
             }
+            DefaultTableModel modelTon = (DefaultTableModel) tableTonKho.getModel();
+            List<TonkhoModel> tonList = bus.getTonKho();
+            for(TonkhoModel m : tonList){
+                modelTon.addRow(new Object[]{ m.getMaSach(), m.getTenSach(), m.getSoLuongTon() });
+            }
+
+            tableTonKho.setDefaultRenderer(Object.class,
+                    new javax.swing.table.DefaultTableCellRenderer(){
+@Override
+                        public Component getTableCellRendererComponent(
+                                JTable table, Object value,
+                                boolean isSelected, boolean hasFocus,
+                                int row, int column) {
+                            Component c = super.getTableCellRendererComponent(
+                                    table,value,isSelected,hasFocus,row,column);
+                            int ton = (int)table.getValueAt(row,2);
+                            if(ton == 0)
+                                c.setBackground(Color.RED);
+                            else if(ton <= 5)
+                                c.setBackground(Color.ORANGE);
+                            else
+                                c.setBackground(Color.WHITE);
+                            return c;
+                        }
+                    });
         } catch(Exception e) {
             e.printStackTrace();
         }

@@ -6,7 +6,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.List;
-
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import javax.swing.table.TableModel;
+import java.io.FileOutputStream;
+import java.io.File;
 public class NhanvienGUI extends JPanel {
 
     private NhanvienBus bus;
@@ -20,7 +25,7 @@ public class NhanvienGUI extends JPanel {
     private JComboBox<String> cboChucVu, cboTrangThai;
     private JRadioButton rdoNam, rdoNu;
 
-    private JButton btnThem, btnSua, btnXoa, btnTim;
+    private JButton btnThem, btnSua, btnXoa, btnTim, btnXuat;
 
     public NhanvienGUI(NhanvienModel user) {
         this.currentUser = user;
@@ -168,12 +173,12 @@ public class NhanvienGUI extends JPanel {
         btnSua = new JButton("Sửa");
         btnXoa = new JButton("Xóa");
         btnTim = new JButton("Tìm kiếm");
-
+        btnXuat = new JButton("Xuất Excel");
         panel.add(btnThem);
         panel.add(btnSua);
         panel.add(btnXoa);
         panel.add(btnTim);
-
+        panel.add(btnXuat);
         btnThem.addActionListener(e -> {
             NhanvienModel nv = getFormData();
             if(bus.add(nv)){
@@ -198,7 +203,7 @@ public class NhanvienGUI extends JPanel {
         });
 
         btnTim.addActionListener(e -> timKiem());
-
+        btnXuat.addActionListener(e -> exportExcel());
         return panel;
     }
 
@@ -268,20 +273,6 @@ public class NhanvienGUI extends JPanel {
         if(!txtLuong.getText().trim().isEmpty()){
             luong = Double.parseDouble(txtLuong.getText().trim());
         }
-//        String ten = txtTen.getText().trim();
-//        String chucVu = null;
-//        if(!cboChucVu.getSelectedItem().toString().equals("Tất cả")){
-//            chucVu = cboChucVu.getSelectedItem().toString();
-//        }
-//        String gioiTinh = rdoNam.isSelected() ? "Nam" : "Nữ";
-//        Integer trangThai = null;
-//        if(!cboTrangThai.getSelectedItem().toString().equals("Tất cả")){
-//            trangThai = cboTrangThai.getSelectedItem().toString().equals("Đang làm") ? 1 : 0;
-//        }
-//        Integer trangThai = null;
-//        if (cboTrangThai.getSelectedIndex() != -1){
-//            trangThai = cboTrangThai.getSelectedItem().toString().equals("Đang làm") ? 1 : 0;
-//        }
         List<NhanvienModel> list = bus.search(ten, chucVu, gioiTinh, trangThai, diaChi, luong);
         model.setRowCount(0);
         for (NhanvienModel n : list){
@@ -302,5 +293,47 @@ public class NhanvienGUI extends JPanel {
     private void phanQuyen(){
         boolean isAdmin = currentUser.getChucVu().equalsIgnoreCase("Admin");
         btnXoa.setVisible(isAdmin);
+    }
+    private void exportExcel(){
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                String path = file.getAbsolutePath() + ".xlsx";
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XSSFSheet sheet = workbook.createSheet("NhanVien");
+                TableModel tableModel = table.getModel();
+                XSSFRow headerRow = sheet.createRow(0);
+                for (int i = 0; i < tableModel.getColumnCount(); i++){
+                    headerRow.createCell(i)
+                            .setCellValue(tableModel.getColumnName(i));
+                }
+
+                for (int i = 0; i < tableModel.getRowCount(); i++){
+                    XSSFRow row = sheet.createRow(i + 1);
+                    for (int j = 0; j < tableModel.getColumnCount(); j++){
+                        Object value = tableModel.getValueAt(i, j);
+                        row.createCell(j)
+                                .setCellValue(value == null ? "" : value.toString());
+                    }
+                }
+                for (int i = 0; i < tableModel.getColumnCount(); i++){
+                    sheet.autoSizeColumn(i);
+                }
+                FileOutputStream out = new FileOutputStream(path);
+                workbook.write(out);
+                workbook.close();
+                out.close();
+                JOptionPane.showMessageDialog(this,
+                        "Xuất Excel thành công!");
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Xuất Excel không thành công!");
+        }
     }
 }
