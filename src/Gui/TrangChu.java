@@ -9,7 +9,11 @@ import java.awt.event.*;
 public class TrangChu extends JFrame{
     String maNV;
     JPanel panelMenu,panelContent,panelTop;
+<<<<<<< HEAD
     JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnPhieuNhap,btnPhanQuyen,btnPhieuXuat,btnNCC,btnDoiTra,btnTaiKhoan;
+=======
+    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnNhaCungCap;
+>>>>>>> origin/Quang
     public TrangChu(){
         setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG SÁCH");
         setSize(1000,600);
@@ -18,6 +22,7 @@ public class TrangChu extends JFrame{
         setLayout(new BorderLayout());
         //menu bên trái
         panelMenu=new JPanel();
+<<<<<<< HEAD
         panelMenu.setPreferredSize(new Dimension(150,0));
         panelMenu.setBackground(new Color(231,208,178));
         panelMenu.setLayout(new BorderLayout());
@@ -31,12 +36,21 @@ public class TrangChu extends JFrame{
         btnTaiKhoan = new JButton("Tài Khoản");
         btnPhieuNhap = new JButton("Phiếu Nhập");
         btnPhieuXuat=new JButton("Phiếu Xuất");
+=======
+        panelMenu.setPreferredSize(new Dimension(200,0));
+        panelMenu.setBackground(new Color(33,150,243));
+        panelMenu.setLayout(new GridLayout(8,1,10,10));
+        btnSach = new JButton("Sách");
+        btnKhachHang = new JButton("Khách Hàng");
+        btnNhaCungCap = new JButton("Nhà Cung Cấp");
+>>>>>>> origin/Quang
         btnNhanVien = new JButton("Nhân Viên");
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
         btnDoiTra = new JButton("Đổi Trả");
         btnPhanQuyen = new JButton("phân quyền");
         btnDangXuat = new JButton("Đăng Xuất");
+<<<<<<< HEAD
 //         JLabel lbMenu=new JLabel("MENU",JLabel.CENTER);
 //         lbMenu.setFont(new Font("Arial",Font.BOLD,18));
 // lbMenu.setForeground(Color.DARK_GRAY);
@@ -68,6 +82,16 @@ styleButton(btnPhanQuyen);
         butTon.add(btnDangXuat);
         panelMenu.add(butTon,BorderLayout.NORTH);
         panelMenu.add(btnDangXuat,BorderLayout.SOUTH);
+=======
+        panelMenu.add(new JLabel("MENU",JLabel.CENTER));
+        panelMenu.add(btnSach);
+        panelMenu.add(btnKhachHang);
+        panelMenu.add(btnNhaCungCap);
+        panelMenu.add(btnNhanVien);
+        panelMenu.add(btnHoaDon);
+        panelMenu.add(btnThongKe);
+        panelMenu.add(btnDangXuat);
+>>>>>>> origin/Quang
         btnDangXuat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -124,6 +148,18 @@ btnPhanQuyen.addActionListener(e -> {
                 panelContent.add(new TaiKhoanGui(), BorderLayout.CENTER);
                 panelContent.revalidate();
                 panelContent.repaint();
+            }
+        });
+        btnKhachHang.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new FormKhachHang();
+            }
+        });
+        btnNhaCungCap.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new FormNhaCungCap();
             }
         });
         //phần trên
