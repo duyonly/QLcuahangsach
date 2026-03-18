@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class TrangChu extends JFrame{
     String maNV;
     JPanel panelMenu,panelContent,panelTop;
-    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnPhieuNhap,btnPhieuXuat,btnNCC,btnDoiTra,btnTaiKhoan;
+    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnPhieuNhap,btnPhanQuyen,btnPhieuXuat,btnNCC,btnDoiTra,btnTaiKhoan;
     public TrangChu(){
         setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG SÁCH");
         setSize(1000,600);
@@ -22,7 +22,7 @@ public class TrangChu extends JFrame{
         panelMenu.setBackground(new Color(231,208,178));
         panelMenu.setLayout(new BorderLayout());
         JPanel butTon=new JPanel();
-        butTon.setLayout(new GridLayout(13,1,7,7));
+        butTon.setLayout(new GridLayout(18,1,7,7));
         butTon.setOpaque(false);
         panelMenu.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         btnSach = new JButton("Sách");
@@ -35,6 +35,7 @@ public class TrangChu extends JFrame{
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
         btnDoiTra = new JButton("Đổi Trả");
+        btnPhanQuyen = new JButton("phân quyền");
         btnDangXuat = new JButton("Đăng Xuất");
 //         JLabel lbMenu=new JLabel("MENU",JLabel.CENTER);
 //         lbMenu.setFont(new Font("Arial",Font.BOLD,18));
@@ -50,6 +51,8 @@ styleButton(btnTaiKhoan);
 styleButton(btnPhieuNhap);
 styleButton(btnDoiTra);
 styleButton(btnDangXuat);
+styleButton(btnSach);
+styleButton(btnPhanQuyen);
         butTon.add(btnSach);
         butTon.add(btnKhachHang);
         butTon.add(btnNhanVien);
@@ -57,6 +60,8 @@ styleButton(btnDangXuat);
         butTon.add(btnHoaDon);
         butTon.add(btnThongKe);
         butTon.add(btnPhieuXuat);
+        
+        butTon.add(btnPhanQuyen);
         butTon.add(btnNCC);
         butTon.add(btnPhieuNhap);
         butTon.add(btnDoiTra);
@@ -83,6 +88,21 @@ styleButton(btnDangXuat);
               panelContent.repaint();
             }
         });
+        // Sự kiện nút Nhập Hàng
+btnPhieuNhap.addActionListener(e -> {
+    panelContent.removeAll();
+    panelContent.add(new NhapHangGUI(), BorderLayout.CENTER);
+    panelContent.revalidate();
+    panelContent.repaint();
+});
+
+// Sự kiện nút Phân Quyền
+btnPhanQuyen.addActionListener(e -> {
+    panelContent.removeAll();
+    panelContent.add(new PhanQuyenGUI(), BorderLayout.CENTER);
+    panelContent.revalidate();
+    panelContent.repaint();
+});
         btnSach.addActionListener(e -> {
             panelContent.removeAll();
             panelContent.add(new SanPhamGUI(), BorderLayout.CENTER); // Đảm bảo PhieuXuatGUI cũng đã đổi sang JPanel
