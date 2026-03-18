@@ -22,7 +22,7 @@ public class TrangChu extends JFrame{
         panelMenu.setBackground(new Color(231,208,178));
         panelMenu.setLayout(new BorderLayout());
         JPanel butTon=new JPanel();
-        butTon.setLayout(new GridLayout(11,1,7,7));
+        butTon.setLayout(new GridLayout(13,1,7,7));
         butTon.setOpaque(false);
         panelMenu.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         btnSach = new JButton("Sách");
@@ -56,7 +56,7 @@ styleButton(btnDangXuat);
         butTon.add(btnTaiKhoan);
         butTon.add(btnHoaDon);
         butTon.add(btnThongKe);
-        
+        butTon.add(btnPhieuXuat);
         butTon.add(btnNCC);
         butTon.add(btnPhieuNhap);
         butTon.add(btnDoiTra);
@@ -82,6 +82,19 @@ styleButton(btnDangXuat);
               panelContent.revalidate();
               panelContent.repaint();
             }
+        });
+        btnSach.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.add(new SanPhamGUI(), BorderLayout.CENTER); // Đảm bảo PhieuXuatGUI cũng đã đổi sang JPanel
+            panelContent.revalidate();
+            panelContent.repaint();
+        });
+        
+        btnPhieuXuat.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.add(new PhieuXuatGUI(), BorderLayout.CENTER); // Đảm bảo PhieuXuatGUI cũng đã đổi sang JPanel
+            panelContent.revalidate();
+            panelContent.repaint();
         });
         btnTaiKhoan.addActionListener(new ActionListener() {
             @Override
@@ -133,7 +146,7 @@ panelContent.add(dashboard, BorderLayout.CENTER);
             btnThongKe.setVisible(false);
         }
     }
-
+    
 //hàm tạo thẻ thốn kế
     private JPanel createCard(String title,String value ){
         JPanel card = new JPanel();
