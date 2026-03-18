@@ -1,4 +1,5 @@
-package Nhanvien;
+package Dao;
+import Dto.NhanvienModel;
 import java.util.List;
 public interface NhanvienDaointerface {
     boolean insert(NhanvienModel nv);

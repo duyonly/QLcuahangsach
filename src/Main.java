@@ -1,6 +1,6 @@
 package Main;
 import Gui.TrangChu;
-import Nhanvien.*;
+import Dto.NhanvienModel;
 import Gui.FormDangNhap;
 import java.awt.EventQueue;
 public class Main {

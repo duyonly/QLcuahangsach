@@ -1,4 +1,4 @@
-package Thongke.Model;
+package Dto;
 
 public class TonkhoModel{
     private String maSach;

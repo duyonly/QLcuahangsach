@@ -1,4 +1,4 @@
-package Nhanvien;
+package Gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +12,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import javax.swing.table.TableModel;
 import java.io.FileOutputStream;
 import java.io.File;
+import Dto.NhanvienModel;
+import Bus.NhanvienBus;
+
 public class NhanvienGUI extends JPanel {
 
     private NhanvienBus bus;

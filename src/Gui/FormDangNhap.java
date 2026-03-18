@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import Nhanvien.NhanvienModel;
+import Dto.NhanvienModel;
 public class FormDangNhap {
     JFrame main;
     JTextField txtUser;
@@ -103,7 +103,7 @@ public void DangNhap(){
     if(ketQua){
         JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
         // Tạo nhân viên đăng nhập
-        Nhanvien.NhanvienModel nv = new Nhanvien.NhanvienModel();
+        Dto.NhanvienModel nv = new Dto.NhanvienModel();
         nv.setChucVu("Admin");
         new TrangChu(nv);
         main.dispose();

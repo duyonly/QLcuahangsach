@@ -1,6 +1,8 @@
-package Thongke;
+package Bus;
 
-import Thongke.Model.*;
+import Dao.*;
+import Dto.*;
+import Gui.*;
 import java.util.List;
 public class ThongkeBus {
     private ThongkeDao dao = new ThongkeDao();

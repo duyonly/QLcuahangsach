@@ -1,4 +1,4 @@
-package Thongke.Model;
+package Dto;
 
 public class ThongkenhanvienModel {
     private String maNV;

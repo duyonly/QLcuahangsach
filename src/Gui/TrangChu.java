@@ -1,10 +1,10 @@
 package Gui;
-import Nhanvien.NhanvienModel;
-import Nhanvien.NhanvienGUI;
+import Dto.NhanvienModel;
+import Gui.NhanvienGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import Thongke.ThongkeGUI;
+import Gui.ThongkeGUI;
 public class TrangChu extends JFrame{
     private NhanvienModel nhanVien;
     JPanel panelMenu,panelContent,panelTop;

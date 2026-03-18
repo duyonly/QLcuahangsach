@@ -1,4 +1,4 @@
-package Nhanvien;
+package Dao;
 
 import Dao.ConnectDB;
 import java.sql.*;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
+import Dto.NhanvienModel;
 public class NhanvienDao implements NhanvienDaointerface  {
 
     @Override

@@ -1,9 +1,10 @@
-
-package Nhanvien;
+package Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import Dao.NhanvienDao;
+import Dto.NhanvienModel;
 public class NhanvienBus{
     private NhanvienDao dao;
     private List<NhanvienModel> listNV;

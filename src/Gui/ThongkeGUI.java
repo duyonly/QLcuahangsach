@@ -1,6 +1,7 @@
-package Thongke;
+package Gui;
 
-import Thongke.Model.*;
+import Dto.*;
+import Bus.ThongkeBus;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
