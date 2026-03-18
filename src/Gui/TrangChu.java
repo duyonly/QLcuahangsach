@@ -9,11 +9,7 @@ import java.awt.event.*;
 public class TrangChu extends JFrame{
     String maNV;
     JPanel panelMenu,panelContent,panelTop;
-<<<<<<< HEAD
-    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnPhieuNhap,btnPhanQuyen,btnPhieuXuat,btnNCC,btnDoiTra,btnTaiKhoan;
-=======
-    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnNhaCungCap;
->>>>>>> origin/Quang
+    JButton btnSach,btnKhachHang,btnHoaDon,btnNhanVien,btnThongKe,btnDangXuat,btnPhieuNhap,btnPhanQuyen,btnPhieuXuat,btnNhaCungCap,btnDoiTra,btnTaiKhoan;
     public TrangChu(){
         setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG SÁCH");
         setSize(1000,600);
@@ -22,7 +18,6 @@ public class TrangChu extends JFrame{
         setLayout(new BorderLayout());
         //menu bên trái
         panelMenu=new JPanel();
-<<<<<<< HEAD
         panelMenu.setPreferredSize(new Dimension(150,0));
         panelMenu.setBackground(new Color(231,208,178));
         panelMenu.setLayout(new BorderLayout());
@@ -32,25 +27,15 @@ public class TrangChu extends JFrame{
         panelMenu.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         btnSach = new JButton("Sách");
         btnKhachHang = new JButton("Khách Hàng");
-        btnNCC=new JButton("Nhà Cung Cấp");
-        btnTaiKhoan = new JButton("Tài Khoản");
-        btnPhieuNhap = new JButton("Phiếu Nhập");
-        btnPhieuXuat=new JButton("Phiếu Xuất");
-=======
-        panelMenu.setPreferredSize(new Dimension(200,0));
-        panelMenu.setBackground(new Color(33,150,243));
-        panelMenu.setLayout(new GridLayout(8,1,10,10));
-        btnSach = new JButton("Sách");
-        btnKhachHang = new JButton("Khách Hàng");
-        btnNhaCungCap = new JButton("Nhà Cung Cấp");
->>>>>>> origin/Quang
+        btnNhaCungCap = new JButton("Nhà Cung Cấp"); 
         btnNhanVien = new JButton("Nhân Viên");
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
+        btnPhieuNhap=new JButton("phiếu nhập");
+        btnPhieuXuat=new JButton("phiếu xuất");
         btnDoiTra = new JButton("Đổi Trả");
         btnPhanQuyen = new JButton("phân quyền");
         btnDangXuat = new JButton("Đăng Xuất");
-<<<<<<< HEAD
 //         JLabel lbMenu=new JLabel("MENU",JLabel.CENTER);
 //         lbMenu.setFont(new Font("Arial",Font.BOLD,18));
 // lbMenu.setForeground(Color.DARK_GRAY);
@@ -60,13 +45,15 @@ styleButton(btnKhachHang);
 styleButton(btnNhanVien);
 styleButton(btnHoaDon);
 styleButton(btnThongKe);
-styleButton(btnNCC);
+styleButton(btnNhaCungCap);
 styleButton(btnTaiKhoan);
 styleButton(btnPhieuNhap);
 styleButton(btnDoiTra);
 styleButton(btnDangXuat);
 styleButton(btnSach);
 styleButton(btnPhanQuyen);
+styleButton(btnPhieuXuat);
+
         butTon.add(btnSach);
         butTon.add(btnKhachHang);
         butTon.add(btnNhanVien);
@@ -76,22 +63,12 @@ styleButton(btnPhanQuyen);
         butTon.add(btnPhieuXuat);
         
         butTon.add(btnPhanQuyen);
-        butTon.add(btnNCC);
+        butTon.add(btnNhaCungCap);
         butTon.add(btnPhieuNhap);
         butTon.add(btnDoiTra);
         butTon.add(btnDangXuat);
         panelMenu.add(butTon,BorderLayout.NORTH);
         panelMenu.add(btnDangXuat,BorderLayout.SOUTH);
-=======
-        panelMenu.add(new JLabel("MENU",JLabel.CENTER));
-        panelMenu.add(btnSach);
-        panelMenu.add(btnKhachHang);
-        panelMenu.add(btnNhaCungCap);
-        panelMenu.add(btnNhanVien);
-        panelMenu.add(btnHoaDon);
-        panelMenu.add(btnThongKe);
-        panelMenu.add(btnDangXuat);
->>>>>>> origin/Quang
         btnDangXuat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -194,7 +171,7 @@ panelContent.add(dashboard, BorderLayout.CENTER);
             btnNhanVien.setVisible(false);
             btnThongKe.setVisible(false);
             btnPhieuNhap.setVisible(false);
-            btnNCC.setVisible(false);
+            btnNhaCungCap.setVisible(false);
         }
         if(session.quyen.equals("kho")){
             btnHoaDon.setVisible(false);

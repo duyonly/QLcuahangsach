@@ -1,0 +1,107 @@
+package Dao;
+
+import Dao.ConnectDB;
+import Gui.*;
+import Dto.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ThongkeDao{
+
+    private Connection con;
+    public ThongkeDao(){
+        try{
+            con = ConnectDB.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+       // con = ConnectDB.getConnection();
+    }
+    public double getTongDoanhThu() throws SQLException{
+        String sql = "SELECT COALESCE(SUM(TongTien),0) FROM hoadon WHERE TrangThai='Đã thanh toán'";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) return rs.getDouble(1);
+        return 0;
+    }
+    public double getTongNhap() throws SQLException{
+        String sql = "SELECT SUM(TongTien) FROM phieunhap";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) return rs.getDouble(1);
+        return 0;
+    }
+    public List<TopsachModel> getThongKeSach() throws SQLException{
+        List<TopsachModel> list = new ArrayList<>();
+        String sql = """
+        SELECT s.MaSach, s.TenSach, IFNULL(SUM(ct.SoLuongMua),0) AS SoLuongBan FROM sach s LEFT JOIN chitiethoadon ct ON s.MaSach = ct.MaSach LEFT JOIN hoadon h ON ct.MaHD = h.MaHD AND h.TrangThai = 'Đã thanh toán'
+        GROUP BY s.MaSach, s.TenSach ORDER BY SoLuongBan DESC
+    """;
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            list.add(new TopsachModel(
+                    rs.getString("TenSach"),
+                    rs.getInt("SoLuongBan")
+            ));
+        }
+        return list;
+    }
+    // Doanh thu theo thang
+    public List<DoanhthuthangModel> getDoanhThuTheoThang() throws SQLException{
+        List<DoanhthuthangModel> list = new ArrayList<>();
+        String sql = """
+            SELECT MONTH(NgayLap) AS Thang, SUM(TongTien) AS DoanhThu FROM hoadon WHERE TrangThai='Đã thanh toán' GROUP BY MONTH(NgayLap)
+        """;
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            list.add(new DoanhthuthangModel(
+                    rs.getInt("Thang"),
+                    rs.getDouble("DoanhThu")
+            ));
+        }
+        return list;
+    }
+    // Thong ke nhanvien
+    public List<ThongkenhanvienModel> getThongKeNhanVien() throws SQLException{
+        List<ThongkenhanvienModel> list = new ArrayList<>();
+        String sql = """
+            SELECT nv.MaNV, nv.TenNV, SUM(h.TongTien) AS DoanhThu FROM hoadon h JOIN nhanvien nv ON h.MaNV = nv.MaNV WHERE h.TrangThai='Đã thanh toán' GROUP BY nv.MaNV, nv.TenNV ORDER BY DoanhThu DESC
+        """;
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            list.add(new ThongkenhanvienModel(
+                    rs.getString("MaNV"),
+                    rs.getString("TenNV"),
+                    rs.getDouble("DoanhThu")
+            ));
+        }
+        return list;
+    }
+    public List<TonkhoModel> getTonKho(){
+        List<TonkhoModel> list = new ArrayList<>();
+        try{
+            Connection con = ConnectDB.getConnection();
+            String sql = """
+            SELECT MaSach, TenSach, SoLuongTon
+            FROM sach
+            ORDER BY SoLuongTon DESC
+        """;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                list.add(new TonkhoModel(
+                        rs.getString("MaSach"),
+                        rs.getString("TenSach"),
+                        rs.getInt("SoLuongTon")
+                ));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+}
