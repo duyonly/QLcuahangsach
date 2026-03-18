@@ -148,7 +148,6 @@ public boolean delete(String maNV) {
                         rs.getString("manv"),
                         rs.getString("tennv"),
                         rs.getString("gioitinh"),
-                       // rs.getDate("ngaysinh").toLocalDate(),
                         ngaySinh,
                         rs.getString("diachi"),
                         rs.getString("chucvu"),

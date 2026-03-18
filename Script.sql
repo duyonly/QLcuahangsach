@@ -48,3 +48,6 @@ ORDER BY DoanhThu DESC;
 SELECT MaSach, TenSach, SoLuongTon
 FROM sach
 ORDER BY SoLuongTon ASC;
+SELECT MaSach, TenSach, SoLuongTon
+            FROM sach
+            ORDER BY SoLuongTon DESC;

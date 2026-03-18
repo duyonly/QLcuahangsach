@@ -82,10 +82,10 @@ public class ThongkeGUI extends JPanel{
     }
     private void loadData(){
         try {
-            lblDoanhThu.setText("Doanh thu: " + bus.getTongDoanhThu());
-            lblNhap.setText("Tổng nhập: " + bus.getTongNhap());
-            lblLoiNhuan.setText("Lợi nhuận: " + bus.getLoiNhuan());
-            // Topsach
+            lblDoanhThu.setText("Doanh thu: " + String.format("%,.0f VNĐ", bus.getTongDoanhThu()));
+            lblNhap.setText("Tổng nhập: " + String.format("%,.0f VNĐ", bus.getTongNhap()));
+            lblLoiNhuan.setText("Lợi nhuận: " + String.format("%,.0f VNĐ", bus.getLoiNhuan()));
+            // thongkesach
             DefaultTableModel modelTop =
                     (DefaultTableModel) tableTop.getModel();
             List<TopsachModel> topList = bus.getTopSach();
@@ -95,6 +95,25 @@ public class ThongkeGUI extends JPanel{
                         m.getSoLuongBan()
                 });
             }
+            tableTop.setDefaultRenderer(Object.class,
+                    new javax.swing.table.DefaultTableCellRenderer(){
+                        @Override
+                        public Component getTableCellRendererComponent(
+                                JTable table, Object value,
+                                boolean isSelected, boolean hasFocus,
+                                int row, int column) {
+                            Component c = super.getTableCellRendererComponent(
+                                    table, value, isSelected, hasFocus, row, column);
+                            if(row < 5){
+                                c.setBackground(new Color(255, 235, 150));
+                                c.setFont(c.getFont().deriveFont(Font.BOLD));
+                            } else{
+                                c.setBackground(Color.WHITE);
+                                c.setFont(table.getFont());
+                            }
+                            return c;
+                        }
+                    });
             // Nhanvien
             DefaultTableModel modelNV =
                     (DefaultTableModel) tableNV.getModel();

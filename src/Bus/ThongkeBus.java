@@ -16,7 +16,7 @@ public class ThongkeBus {
         return getTongDoanhThu() - getTongNhap();
     }
     public List<TopsachModel> getTopSach() throws Exception{
-        return dao.getTopSach();
+        return dao.getThongKeSach();
     }
     public List<DoanhthuthangModel> getDoanhThuTheoThang() throws Exception{
         return dao.getDoanhThuTheoThang();

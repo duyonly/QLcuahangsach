@@ -20,13 +20,10 @@ public class NhanvienBus{
     public List<NhanvienModel> getAll(){
         return listNV;
     }
-    //TẢI LẠI DỮ LIỆU
     public void refresh(){
         listNV = dao.selectAll();
     }
-    //Them nv
     public boolean add(NhanvienModel nv){
-        // kiểm tra nanv
         if (dao.selectById(nv.getMaNV()) != null){
             return false;
         }
@@ -37,7 +34,6 @@ public class NhanvienBus{
         }
         return false;
     }
-    //Cap nhat thongtin
     public boolean update(NhanvienModel nv){
         if (dao.update(nv)){
             int index = getIndexById(nv.getMaNV());
@@ -48,7 +44,6 @@ public class NhanvienBus{
         }
         return false;
     }
-
     public boolean updateTrangThaiNghiViec(String maNV){
         if(dao.updateTrangThaiNghiViec(maNV)){
             int index = getIndexById(maNV);
@@ -59,21 +54,6 @@ public class NhanvienBus{
         }
         return false;
     }
-
-    //Xoa(soft delete)
-//    public boolean delete(String maNV){
-//        if (dao.delete(maNV)){
-//
-//            for (NhanvienModel nv : listNV){
-//                if (nv.getMaNV().equals(maNV)) {
-//                    nv.setTrang_thai(-1);
-//                    break;
-//                }
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
     public boolean deleteNhanVien(String maNV){
         NhanvienModel nv = dao.selectById(maNV);
         if (nv == null) {
@@ -93,7 +73,6 @@ public class NhanvienBus{
         }
         return dao.delete(maNV);
     }
-    //Tim kiem manv
     public NhanvienModel getById(String maNV){
         return dao.selectById(maNV);
     }

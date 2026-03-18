@@ -19,7 +19,7 @@ public class ThongkeDao{
        // con = ConnectDB.getConnection();
     }
     public double getTongDoanhThu() throws SQLException{
-        String sql = "SELECT SUM(TongTien) FROM hoadon WHERE TrangThai='Đã thanh toán'";
+        String sql = "SELECT COALESCE(SUM(TongTien),0) FROM hoadon WHERE TrangThai='Đã thanh toán'";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) return rs.getDouble(1);
@@ -32,16 +32,15 @@ public class ThongkeDao{
         if (rs.next()) return rs.getDouble(1);
         return 0;
     }
-    // Top 5 sach ban chay nhat
-    public List<TopsachModel> getTopSach() throws SQLException{
+    public List<TopsachModel> getThongKeSach() throws SQLException{
         List<TopsachModel> list = new ArrayList<>();
         String sql = """
-            SELECT s.TenSach, SUM(ct.SoLuongMua) AS SoLuongBan
-            FROM chitiethoadon ct JOIN sach s ON ct.MaSach = s.MaSach JOIN hoadon h ON ct.MaHD = h.MaHD WHERE h.TrangThai='Đã thanh toán' GROUP BY s.TenSach ORDER BY SoLuongBan DESC LIMIT 5
-        """;
+        SELECT s.MaSach, s.TenSach, IFNULL(SUM(ct.SoLuongMua),0) AS SoLuongBan FROM sach s LEFT JOIN chitiethoadon ct ON s.MaSach = ct.MaSach LEFT JOIN hoadon h ON ct.MaHD = h.MaHD AND h.TrangThai = 'Đã thanh toán'
+        GROUP BY s.MaSach, s.TenSach ORDER BY SoLuongBan DESC
+    """;
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()){
             list.add(new TopsachModel(
                     rs.getString("TenSach"),
                     rs.getInt("SoLuongBan")
