@@ -15,7 +15,7 @@ public class PhieuXuatDAO {
         try{
             conn = ConnectDB.getConnection();
 
-            String sql = "SELECT * FROM PhieuXuat";
+            String sql = "SELECT * FROM phieuxuat";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -46,7 +46,7 @@ public class PhieuXuatDAO {
 
             conn = ConnectDB.getConnection();
 
-            String sql = "INSERT INTO PhieuXuat VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO phieuxuat(maphieuxuat, thoigian, trangthai, nguoitaophieuxuat, makhachhang) VALUES(?,?,?,?,?)";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -71,7 +71,7 @@ public class PhieuXuatDAO {
 
             conn = ConnectDB.getConnection();
 
-            String sql = "UPDATE PhieuXuat SET thoigian=?, trangthai=?, nguoitaophieuxuat=?, makhachhang=? WHERE maphieuxuat=?";
+            String sql = "UPDATE phieuxuat SET thoigian=?, trangthai=?, nguoitaophieuxuat=?, makhachhang=? WHERE maphieuxuat=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -93,11 +93,9 @@ public class PhieuXuatDAO {
     public boolean delete(String ma){
 
         try{
-
             conn = ConnectDB.getConnection();
 
-            String sql = "DELETE FROM PhieuXuat WHERE maphieuxuat=?";
-
+            String sql = "UPDATE phieuxuat SET trangthai='Da huy' WHERE maphieuxuat=?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, ma);
@@ -107,8 +105,6 @@ public class PhieuXuatDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return false;
-    }
-    
+        }
 }

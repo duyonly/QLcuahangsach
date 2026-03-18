@@ -46,7 +46,7 @@ public class ChiTietPhieuXuatDAO {
 
             conn = ConnectDB.getConnection();
 
-            String sql = "INSERT INTO ChiTietPhieuXuat VALUES(?,?,?,?)";
+            String sql = "INSERT INTO ChiTietPhieuXuat(maphieuxuat, masanpham, soluong, dongia) VALUES(?,?,?,?)";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 

@@ -14,17 +14,22 @@ public class ChiTietPhieuXuatGUI extends JFrame {
     DefaultTableModel model;
 
     ChiTietPhieuXuatBUS bus = new ChiTietPhieuXuatBUS();
+    String maPX;
 
-    public ChiTietPhieuXuatGUI(){
+    public ChiTietPhieuXuatGUI(String maPX){
 
-        setTitle("Chi Tiết Phiếu Xuất");
+        this.maPX = maPX;
+
+        setTitle("Chi tiết phiếu xuất - " + maPX);
         setSize(800,500);
         setLocationRelativeTo(null);
 
+        // ===== FORM =====
         JPanel panel = new JPanel(new GridLayout(4,2));
 
         panel.add(new JLabel("Mã Phiếu Xuất"));
-        txtMaPX = new JTextField();
+        txtMaPX = new JTextField(maPX); // tự fill
+        txtMaPX.setEditable(false); // không cho sửa
         panel.add(txtMaPX);
 
         panel.add(new JLabel("Mã Sản Phẩm"));
@@ -39,50 +44,82 @@ public class ChiTietPhieuXuatGUI extends JFrame {
         txtDonGia = new JTextField();
         panel.add(txtDonGia);
 
-        add(panel,BorderLayout.WEST);
+        add(panel, BorderLayout.WEST);
 
+        // ===== TABLE =====
         model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{
                 "Mã PX","Mã SP","Số Lượng","Đơn Giá"
         });
 
         table = new JTable(model);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
-        add(new JScrollPane(table),BorderLayout.CENTER);
-
+        // ===== BUTTON =====
         JButton btnThem = new JButton("Thêm");
         JButton btnXoa = new JButton("Xóa");
-        JButton btnLoad = new JButton("Load");
 
         JPanel p = new JPanel();
         p.add(btnThem);
         p.add(btnXoa);
-        p.add(btnLoad);
 
-        add(p,BorderLayout.SOUTH);
+        add(p, BorderLayout.SOUTH);
 
-        btnLoad.addActionListener(e -> loadData());
+        // ===== EVENT =====
 
+        // Thêm
         btnThem.addActionListener(e -> {
+            try{
+                ChiTietPhieuXuatDTO ct = new ChiTietPhieuXuatDTO();
 
-            ChiTietPhieuXuatDTO ct = new ChiTietPhieuXuatDTO();
+                ct.setMaphieuxuat(maPX);
+                ct.setMasanpham(txtMaSP.getText());
+                ct.setSoluong(Integer.parseInt(txtSoLuong.getText()));
+                ct.setDongia(Double.parseDouble(txtDonGia.getText()));
 
-            ct.setMaphieuxuat(txtMaPX.getText());
-            ct.setMasanpham(txtMaSP.getText());
-            ct.setSoluong(Integer.parseInt(txtSoLuong.getText()));
-            ct.setDongia(Double.parseDouble(txtDonGia.getText()));
+                if(bus.add(ct)){
+                    JOptionPane.showMessageDialog(this,"Thêm thành công!");
+                    loadData();
+                }else{
+                    JOptionPane.showMessageDialog(this,"Thất bại!");
+                }
 
-            bus.add(ct);
-
-            loadData();
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this,"Sai dữ liệu!");
+            }
         });
 
+        // Xóa
         btnXoa.addActionListener(e -> {
 
-            bus.delete(txtMaPX.getText(), txtMaSP.getText());
+            int row = table.getSelectedRow();
 
-            loadData();
+            if(row == -1){
+                JOptionPane.showMessageDialog(this,"Chọn dòng!");
+                return;
+            }
+
+            String masp = table.getValueAt(row,1).toString();
+
+            if(bus.delete(maPX, masp)){
+                JOptionPane.showMessageDialog(this,"Xóa thành công!");
+                loadData();
+            }
         });
+
+        // Click table
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                int row = table.getSelectedRow();
+
+                txtMaSP.setText(String.valueOf(model.getValueAt(row,1)));
+                txtSoLuong.setText(String.valueOf(model.getValueAt(row,2)));
+                txtDonGia.setText(String.valueOf(model.getValueAt(row,3)));
+            }
+        });
+
+        // Load data ban đầu
+        loadData();
 
         setVisible(true);
     }
@@ -91,7 +128,7 @@ public class ChiTietPhieuXuatGUI extends JFrame {
 
         model.setRowCount(0);
 
-        for(ChiTietPhieuXuatDTO ct : bus.getAll()){
+        for(ChiTietPhieuXuatDTO ct : bus.getByMaPhieuXuat(maPX)){
 
             model.addRow(new Object[]{
                     ct.getMaphieuxuat(),
