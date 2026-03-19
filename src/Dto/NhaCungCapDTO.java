@@ -9,7 +9,7 @@ public class NhaCungCapDTO {
 
     public NhaCungCapDTO() {}
 
-    public NhaCungCapDTO(String MaNCC, String TenNCC, String DiaChi, String SDT, String Email) {
+    public NhaCungCapDTO(String MaNCC, String TenNCC, String DienThoai, String Email, String DiaChi) {
         this.MaNCC = MaNCC;
         this.TenNCC = TenNCC;
         this.DienThoai = DienThoai;
@@ -34,14 +34,11 @@ public class NhaCungCapDTO {
     }
 
     public String getEmail() {
-        return Email;
-    }
+return Email }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
+    public void setEmail(String Email) { this.Email = Email; }
 
-    public String getDiaChi() { return DiaChi; }
+    public String getDiaChi() { return DiaChi }
 
     public void setDiaChi(String DiaChi) { this.DiaChi = DiaChi; }
 }

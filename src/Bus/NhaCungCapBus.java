@@ -21,7 +21,7 @@ public class NhaCungCapBus {
     public boolean xoa(int MaNCC){
         return dao.xoa(MaNCC);
     }
-    public NhaCungCapDTO xemChiTiet(int MaNCC){
+    public NhaCungCapDTO xemChiTiet(String MaNCC){
         return dao.xemChiTiet(MaNCC);
     }
 }

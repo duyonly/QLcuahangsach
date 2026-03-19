@@ -6,6 +6,7 @@ import Dto.NhaCungCapDTO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.FileWriter;
 import java.util.List;
 
@@ -37,6 +38,20 @@ public class FormNhaCungCap extends JFrame {
         table = new JTable(model);
         loadData();
 
+        // double-click to view details
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        int ma = Integer.parseInt(model.getValueAt(row, 0).toString());
+                        xemChiTiet(ma);
+                    }
+                }
+            }
+        });
+
         JScrollPane scroll = new JScrollPane(table);
         add(scroll, BorderLayout.CENTER);
 
@@ -65,7 +80,7 @@ public class FormNhaCungCap extends JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn nhà cung cấp để sửa");
                 return;
             }
-            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
+            String ma = model.getValueAt(idx,0).toString();
             String ten = model.getValueAt(idx,1).toString();
             String diachi = model.getValueAt(idx,2).toString();
             String sdt = model.getValueAt(idx,3).toString();
@@ -80,14 +95,8 @@ public class FormNhaCungCap extends JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn nhà cung cấp để xem chi tiết");
                 return;
             }
-            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
-            NhaCungCapDTO n = bus.layChiTiet(ma);
-            if(n==null){
-                JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết nhà cung cấp");
-                return;
-            }
-            ChiTietNhaCungCapDialog dlg = new ChiTietNhaCungCapDialog(this, n);
-            dlg.setVisible(true);
+            String ma = model.getValueAt(idx,0).toString();
+            xemChiTiet(ma);
         });
         btnDelete.addActionListener(e -> {
             int idx = table.getSelectedRow();
@@ -111,11 +120,23 @@ public class FormNhaCungCap extends JFrame {
         setVisible(true);
     }
 
+    // Public helper to view details programmatically
+    public void xemChiTiet(String ma){
+        NhaCungCapDTO n = bus.xemChiTiet(ma);
+        if(n==null){
+            JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết nhà cung cấp");
+            return;
+        }
+        ChiTietNhaCungCapDialog dlg = new ChiTietNhaCungCapDialog(this, n);
+        dlg.setVisible(true);
+    }
+
+
     private void loadData(){
         model.setRowCount(0);
-        List<NhaCungCapDTO> list = bus.layTatCa();
+        List<NhaCungCapDTO> list = bus.hienDanhSach();
         for(NhaCungCapDTO n: list){
-            model.addRow(new Object[]{n.getMaNCC(),n.getTenNCC(),n.getDiaChi(),n.getSDT(),n.getEmail()});
+            model.addRow(new Object[]{n.getMaNCC(),n.getTenNCC(),n.getDiaChi(),n.getDienThoai(),n.getEmail()});
         }
     }
 
@@ -123,7 +144,7 @@ public class FormNhaCungCap extends JFrame {
         model.setRowCount(0);
         List<NhaCungCapDTO> list = bus.timKiem(q);
         for(NhaCungCapDTO n: list){
-            model.addRow(new Object[]{n.getMaNCC(),n.getTenNCC(),n.getDiaChi(),n.getSDT(),n.getEmail()});
+            model.addRow(new Object[]{n.getMaNCC(),n.getTenNCC(),n.getDiaChi(),n.getDienThoai(),n.getEmail()});
         }
     }
 
@@ -181,13 +202,13 @@ public class FormNhaCungCap extends JFrame {
                 return;
             }
             if(n==null){
-                NhaCungCapDTO nn = new NhaCungCapDTO(0,ten,diachi,sdt,email);
+                NhaCungCapDTO nn = new NhaCungCapDTO("0",ten,diachi,sdt,email);
                 boolean ok = bus.them(nn);
                 if(ok){ loadData(); dlg.dispose(); JOptionPane.showMessageDialog(this,"Thêm thành công"); }
                 else JOptionPane.showMessageDialog(this,"Thêm thất bại");
             }else{
-                n.setTenNCC(ten); n.setDiaChi(diachi); n.setSDT(sdt); n.setEmail(email);
-                boolean ok = bus.capNhat(n);
+                n.setTenNCC(ten); n.setDiaChi(diachi); n.setDienThoai(sdt); n.setEmail(email);
+                boolean ok = bus.sua(n);
                 if(ok){ loadData(); dlg.dispose(); JOptionPane.showMessageDialog(this,"Cập nhật thành công"); }
                 else JOptionPane.showMessageDialog(this,"Cập nhật thất bại");
             }

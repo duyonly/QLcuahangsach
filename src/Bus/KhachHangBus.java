@@ -18,10 +18,10 @@ public class KhachHangBus {
     public boolean sua(KhachHangDTO k){
         return dao.sua(k);
     }
-    public boolean xoa(int MaKH){
+    public boolean xoa(String MaKH){
         return dao.xoa(MaKH);
     }
-    public KhachHangDTO xemChiTiet(int MaKH){
+    public KhachHangDTO xemChiTiet(String MaKH){
         return dao.xemChiTiet(MaKH);
     }
 }

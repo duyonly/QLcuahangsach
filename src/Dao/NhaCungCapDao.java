@@ -37,9 +37,9 @@ public class NhaCungCapDao {
             try(ResultSet rs=stmt.executeQuery()){
                 while(rs.next()){
                     NhaCungCapDTO n=new NhaCungCapDTO();
-                    n.setMaNCC(rs.getInt("MaNCC"));
+                    n.setMaNCC(rs.getString("MaNCC"));
                     n.setTenNCC(rs.getString("TenNCC"));
-                    n.setSDT(rs.getString("DienThoai"));
+                    n.setDienThoai(rs.getString("DienThoai"));
                     n.setEmail(rs.getString("Email"));
                     n.setDiaChi(rs.getString("DiaChi"));
                     list.add(n);
@@ -91,7 +91,7 @@ public class NhaCungCapDao {
         return false;
     }
 
-    public NhaCungCapDTO xemChiTiet(int MaNCC){
+    public NhaCungCapDTO xemChiTiet(String MaNCC){
         String sql = "SELECT MaNCC,TenNCC,DienThoai,Email,DiaChi FROM nhacungcap WHERE MaNCC=?";
         try(Connection con = ConnectDB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)){
             stmt.setString(1, MaNCC);
@@ -100,7 +100,7 @@ public class NhaCungCapDao {
                     NhaCungCapDTO n = new NhaCungCapDTO();
                     n.setMaNCC(rs.getString("MaNCC"));
                     n.setTenNCC(rs.getString("TenNCC"));
-                    n.setSDT(rs.getString("DienThoai"));
+                    n.setDienThoai(rs.getString("DienThoai"));
                     n.setEmail(rs.getString("Email"));
                     n.setDiaChi(rs.getString("DiaChi"));
                     return n;

@@ -30,7 +30,7 @@ public class FormKhachHang extends JFrame {
         top.add(new JLabel("Tìm kiếm:")); top.add(txtSearch); top.add(btnSearch); top.add(btnRefresh); top.add(btnExport);
         add(top, BorderLayout.NORTH);
 
-        model = new DefaultTableModel(new Object[]{"Mã","Tên","Địa Chỉ","SĐT","Email"},0){
+        model = new DefaultTableModel(new Object[]{"Mã","Tên","SĐT","Email","Địa Chỉ"},0){
             @Override
             public boolean isCellEditable(int row,int column){
                 return false;
@@ -38,6 +38,20 @@ public class FormKhachHang extends JFrame {
         };
         table = new JTable(model);
         loadData();
+
+        // click to view details
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        String ma = model.getValueAt(row, 0).toString();
+                        xemChiTiet(ma);
+                    }
+                }
+            }
+        });
 
         JScrollPane scroll = new JScrollPane(table);
         add(scroll, BorderLayout.CENTER);
@@ -67,11 +81,13 @@ public class FormKhachHang extends JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để sửa");
                 return;
             }
-            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
+            String ma = model.getValueAt(idx,0).toString();
             String ten = model.getValueAt(idx,1).toString();
-            String diachi = model.getValueAt(idx,2).toString();
-            String sdt = model.getValueAt(idx,3).toString();
-            String email = model.getValueAt(idx,4).toString();
+            String sdt = model.getValueAt(idx,2).toString();
+            String email = model.getValueAt(idx,3).toString();
+            String diachi = model.getValueAt(idx,4).toString();
+            String loai = model.getValueAt(idx,5).toString();
+            int diem = model.getValueAt(idx,6);
             KhachHangDTO k = new KhachHangDTO(ma,ten,diachi,sdt,email);
             openEditDialog(k);
         });
@@ -82,15 +98,8 @@ public class FormKhachHang extends JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để xem chi tiết");
                 return;
             }
-            int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
-            KhachHangDTO k = bus.layChiTiet(ma);
-            if(k==null){
-                JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết khách hàng");
-                return;
-            }
-            // open detailed dialog
-            ChiTietKhachHangDialog dlg = new ChiTietKhachHangDialog(this, k);
-            dlg.setVisible(true);
+            String ma = model.getValueAt(idx,0).toString();
+            xemChiTiet(ma);
         });
         btnDelete.addActionListener(e -> {
             int idx = table.getSelectedRow();
@@ -114,11 +123,23 @@ public class FormKhachHang extends JFrame {
         setVisible(true);
     }
 
+    // Public helper to view details programmatically
+    public void xemChiTiet(String ma){
+        KhachHangDTO k = bus.xemChiTiet(ma);
+        if(k==null){
+            JOptionPane.showMessageDialog(this, "Không tìm thấy chi tiết khách hàng");
+            return;
+        }
+        ChiTietKhachHangDialog dlg = new ChiTietKhachHangDialog(this, k);
+        dlg.setVisible(true);
+    }
+
+
     private void loadData(){
         model.setRowCount(0);
-        List<KhachHangDTO> list = bus.layTatCa();
+        List<KhachHangDTO> list = bus.hienDanhSach();
         for(KhachHangDTO k: list){
-            model.addRow(new Object[]{k.getMaKH(),k.getTenKH(),k.getDiaChi(),k.getSDT(),k.getEmail()});
+            model.addRow(new Object[]{k.getMaKH(),k.getTenKH(),k.getSDT(),k.getEmail(),k.getDiaChi()});
         }
     }
 
@@ -169,28 +190,31 @@ public class FormKhachHang extends JFrame {
 
         if(k!=null){
             txtTen.setText(k.getTenKH());
-            txtDiaChi.setText(k.getDiaChi());
             txtSDT.setText(k.getSDT());
             txtEmail.setText(k.getEmail());
+            txtDiaChi.setText(k.getDiaChi());
+            textLoai.setText(k.getLoaiKH());
         }
 
         btnSave.addActionListener(e -> {
             String ten = txtTen.getText().trim();
-            String diachi = txtDiaChi.getText().trim();
             String sdt = txtSDT.getText().trim();
             String email = txtEmail.getText().trim();
+            String diachi = txtDiaChi.getText().trim();
+            String loai = txtLoaiKH.getText().trim();
+            
             if(ten.isEmpty()){
                 JOptionPane.showMessageDialog(dlg,"Tên không được để trống");
                 return;
             }
             if(k==null){
-                KhachHangDTO nk = new KhachHangDTO(0,ten,diachi,sdt,email);
+                KhachHangDTO nk = new KhachHangDTO("0",ten,sdt,email,diachi,loai,0);
                 boolean ok = bus.them(nk);
                 if(ok){ loadData(); dlg.dispose(); JOptionPane.showMessageDialog(this,"Thêm thành công"); }
                 else JOptionPane.showMessageDialog(this,"Thêm thất bại");
             }else{
-                k.setTenKH(ten); k.setDiaChi(diachi); k.setSDT(sdt); k.setEmail(email);
-                boolean ok = bus.capNhat(k);
+                k.setTenKH(ten); k.setSDT(sdt); k.setEmail(email); k.setDiaChi(diachi); k.setLoaiKH(loai);
+                boolean ok = bus.sua(k);
                 if(ok){ loadData(); dlg.dispose(); JOptionPane.showMessageDialog(this,"Cập nhật thành công"); }
                 else JOptionPane.showMessageDialog(this,"Cập nhật thất bại");
             }

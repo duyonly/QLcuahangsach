@@ -12,7 +12,7 @@ public class KhachHangDTO {
 
     public KhachHangDTO() {}
 
-    public KhachHangDTO(String MaKH, String TenKH, String DiaChi, String SDT, String Email) {
+    public KhachHangDTO(String MaKH, String TenKH, String GioiTinh, String SDT, String Email, String DiaChi, String LoaiKhachHang, int DiemTichLuy) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.GioiTinh = GioiTinh;
