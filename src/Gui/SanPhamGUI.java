@@ -238,24 +238,21 @@ public class SanPhamGUI extends JFrame {
 
         int row = table.getSelectedRow();
 
-        if(row < 0){
-            JOptionPane.showMessageDialog(this,"Chọn sản phẩm!");
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn sản phẩm!");
             return;
         }
 
-        String ma = model.getValueAt(row,0).toString();
+        String ma = model.getValueAt(row, 0).toString();
 
-        int confirm = JOptionPane.showConfirmDialog(this,"Ngừng bán sản phẩm này?");
-        if(confirm == JOptionPane.YES_OPTION){
+        int confirm = JOptionPane.showConfirmDialog(this, "Ngừng bán sản phẩm này?");
+        if (confirm == JOptionPane.YES_OPTION) {
 
-            SanPhamDTO sp = bus.findByID(ma);
-            sp.setTrangthai("Ngung ban");
-
-            if(bus.update(sp)){
-                JOptionPane.showMessageDialog(this,"Đã ngừng bán!");
+            if (bus.delete(ma)) {
+                JOptionPane.showMessageDialog(this, "Đã ngừng bán!");
                 loadTable();
-            }else{
-                JOptionPane.showMessageDialog(this,"Thất bại!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thất bại!");
             }
         }
     }

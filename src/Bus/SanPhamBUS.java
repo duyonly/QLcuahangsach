@@ -22,7 +22,7 @@ public class SanPhamBUS {
 
     // Xóa sản phẩm
     public boolean delete(String masp){
-        return dao.delete(masp);
+        return dao.updateTrangThai(masp, "Ngừng bán");
     }
 
     // Sửa sản phẩm

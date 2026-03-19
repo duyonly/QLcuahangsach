@@ -170,4 +170,19 @@ public class SanPhamDAO {
         }
         return list;
     }
+    public boolean updateTrangThai(String maSP, String trangThai) {
+        String sql = "UPDATE sach SET TrangThai = ? WHERE MaSach = ?";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, trangThai);
+            ps.setString(2, maSP);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
