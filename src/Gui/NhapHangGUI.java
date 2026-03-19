@@ -4,6 +4,10 @@ import Bus.PhieuNhapBUS;
 import Dto.PhieuNhapDTO;
 import Dto.CtPhieuNhapDTO;
 
+// Import thêm thư viện Sản Phẩm 
+import BUS.SanPhamBUS;
+import DTO.SanPhamDTO;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -38,6 +42,8 @@ public class NhapHangGUI extends JPanel {
 
         add(splitPane, BorderLayout.CENTER);
         ganSuKien();
+        
+        loadDataToGUI();
     }
 
     private JPanel taoPanelTrai_SanPham() {
@@ -51,7 +57,7 @@ public class NhapHangGUI extends JPanel {
         txtTimKiemSP = new JTextField(15);
         panelTimKiem.add(txtTimKiemSP);
         
-        btnTimSP = new JButton("Tìm"); // Khởi tạo nút TÌM
+        btnTimSP = new JButton("Tìm"); 
         btnTimSP.setBackground(new Color(52, 152, 219));
         btnTimSP.setForeground(Color.WHITE);
         panelTimKiem.add(btnTimSP);
@@ -65,12 +71,7 @@ public class NhapHangGUI extends JPanel {
         tblSanPham.setRowHeight(25);
         JScrollPane scrollSP = new JScrollPane(tblSanPham);
 
-        // Dữ liệu giả lập
-        modelSanPham.addRow(new Object[]{"SP001", "Áo thun nam đen", 15});
-        modelSanPham.addRow(new Object[]{"SP002", "Áo khoác dù trắng", 8});
-        modelSanPham.addRow(new Object[]{"SP003", "Quần Jean xanh", 20});
 
-        // TẠO LAYOUT 2 TẦNG CHỐNG BỊ CHE MẤT NÚT
         JPanel panelThaoTac = new JPanel(new BorderLayout()); 
         panelThaoTac.setBackground(Color.WHITE);
 
@@ -111,6 +112,7 @@ public class NhapHangGUI extends JPanel {
         panelThongTin.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 5));
 
         panelThongTin.add(new JLabel("Nhà cung cấp:"));
+        // Tạm thời để nguyên dữ liệu giả của Nhà cung cấp (Chờ bạn khác làm module Nhà Cung Cấp)
         cbxNhaCungCap = new JComboBox<>(new String[]{"NCC01 - Xưởng may Vina", "NCC02 - Tổng kho Quảng Châu"});
         panelThongTin.add(cbxNhaCungCap);
 
@@ -163,6 +165,23 @@ public class NhapHangGUI extends JPanel {
         return panelPhai;
     }
 
+    public void loadDataToGUI() {
+        modelSanPham.setRowCount(0); // Xóa sạch dữ liệu cũ
+        
+        SanPhamBUS spBus = new SanPhamBUS(); // Gọi lớp BUS 
+        ArrayList<SanPhamDTO> listSP = spBus.getAll(); // Kéo dữ liệu từ MySQL lên
+        
+        if (listSP != null) {
+            for (SanPhamDTO sp : listSP) {
+                modelSanPham.addRow(new Object[]{
+                    sp.getMasp(),        
+                    sp.getTensp(),       
+                    sp.getSoluongton()    
+                });
+            }
+        }
+    }
+
     private void ganSuKien() {
         btnTimSP.addActionListener(e -> {
             String keyword = txtTimKiemSP.getText().trim().toLowerCase();
@@ -208,7 +227,6 @@ public class NhapHangGUI extends JPanel {
             }
         });
 
-        // 4. SỰ KIỆN XÓA KHỎI PHIẾU
         btnXoaKhoiPhieu.addActionListener(e -> {
             int row = tblPhieuNhap.getSelectedRow();
             if (row != -1) {
@@ -219,7 +237,6 @@ public class NhapHangGUI extends JPanel {
             }
         });
         
-        // 5. SỰ KIỆN XÁC NHẬN LƯU VÀO DATABASE
         btnXacNhanNhap.addActionListener(e -> {
             int rowCount = modelPhieuNhap.getRowCount();
             if (rowCount == 0) {
@@ -257,6 +274,9 @@ public class NhapHangGUI extends JPanel {
                 JOptionPane.showMessageDialog(this, "Nhập hàng thành công! Mã phiếu: " + maPhieu);
                 modelPhieuNhap.setRowCount(0); 
                 capNhatTongTien();
+                
+                // Cập nhật lại danh sách sản phẩm bên trái để thấy số lượng tồn kho vừa tăng lên
+                loadDataToGUI(); 
             } else {
                 JOptionPane.showMessageDialog(this, thongBao, "Lỗi", JOptionPane.ERROR_MESSAGE);
             }

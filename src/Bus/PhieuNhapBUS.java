@@ -4,6 +4,10 @@ import Dao.PhieuNhapDAO;
 import Dao.CtPhieuNhapDAO;
 import Dto.PhieuNhapDTO;
 import Dto.CtPhieuNhapDTO;
+
+// 1. IMPORT THÊM LỚP BUS CỦA SẢN PHẨM
+import Bus.SanPhamBUS; 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -32,20 +36,21 @@ public class PhieuNhapBUS {
         }
 
         try {
+            // 1. Lưu thông tin Phiếu Nhập
             int ketQuaPhieu = phieuNhapDAO.insert(phieuNhap);
             
             if (ketQuaPhieu > 0) {
+                // 2. Lưu thông tin Chi Tiết Phiếu Nhập
                 int ketQuaChiTiet = ctPhieuNhapDAO.insertAll(chiTietList);
                 
                 if (ketQuaChiTiet == chiTietList.size()) {
                     
-                    // TODO: Chờ ông làm xong phần Sản phẩm thì mở comment đoạn dưới đây ra để chạy
-                    /*
-                    SanPhamDAO spDAO = new SanPhamDAO();
+                    //cộng dồn số lượng sản phẩm vào kho
+                    SanPhamBUS spBUS = new SanPhamBUS();
                     for (CtPhieuNhapDTO ct : chiTietList) {
-                        spDAO.capNhatSoLuongTon(ct.getMaSanPham(), ct.getSoLuong());
+                        // Gọi hàm cập nhật số lượng
+                        spBUS.capNhatSoLuong(ct.getMaSanPham(), ct.getSoLuong());
                     }
-                    */
                     
                     return "Thành công";
                 } else {
