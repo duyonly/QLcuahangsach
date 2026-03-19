@@ -21,10 +21,24 @@ public class TrangChu extends JFrame{
         panelMenu.setPreferredSize(new Dimension(150,0));
         panelMenu.setBackground(new Color(231,208,178));
         panelMenu.setLayout(new BorderLayout());
-        JPanel butTon=new JPanel();
-        butTon.setLayout(new GridLayout(18,1,7,7));
-        butTon.setOpaque(false);
-        panelMenu.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+       JPanel butTon = new JPanel();
+       butTon.setLayout(new BoxLayout(butTon, BoxLayout.Y_AXIS)); 
+       butTon.setOpaque(false);
+       JScrollPane scrollPane = new JScrollPane(butTon);
+scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+scrollPane.setBorder(null); // Xóa viền của thanh cuộn cho đẹp
+scrollPane.setOpaque(false);
+scrollPane.getViewport().setOpaque(false);
+
+// Tăng tốc độ cuộn chuột
+scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+// Add thanh cuộn vào trung tâm menu
+panelMenu.add(scrollPane, BorderLayout.CENTER);
+       // Thêm một khoảng đệm nhỏ ở trên cùng
+       butTon.add(Box.createVerticalStrut(10));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         btnSach = new JButton("Sách");
         btnKhachHang = new JButton("Khách Hàng");
         btnNhaCungCap = new JButton("Nhà Cung Cấp"); 
@@ -36,6 +50,7 @@ public class TrangChu extends JFrame{
         btnDoiTra = new JButton("Đổi Trả");
         btnPhanQuyen = new JButton("phân quyền");
         btnDangXuat = new JButton("Đăng Xuất");
+        btnTaiKhoan=new JButton("tài Khoản");
 //         JLabel lbMenu=new JLabel("MENU",JLabel.CENTER);
 //         lbMenu.setFont(new Font("Arial",Font.BOLD,18));
 // lbMenu.setForeground(Color.DARK_GRAY);
@@ -55,18 +70,18 @@ styleButton(btnPhanQuyen);
 styleButton(btnPhieuXuat);
 
         butTon.add(btnSach);
-        butTon.add(btnKhachHang);
-        butTon.add(btnNhanVien);
-        butTon.add(btnTaiKhoan);
-        butTon.add(btnHoaDon);
-        butTon.add(btnThongKe);
-        butTon.add(btnPhieuXuat);
-        
-        butTon.add(btnPhanQuyen);
-        butTon.add(btnNhaCungCap);
-        butTon.add(btnPhieuNhap);
-        butTon.add(btnDoiTra);
-        butTon.add(btnDangXuat);
+        butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnKhachHang);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnNhanVien);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnTaiKhoan);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnHoaDon);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnThongKe);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnPhieuXuat);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnPhanQuyen);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnNhaCungCap);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnPhieuNhap);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnDoiTra);butTon.add(Box.createVerticalStrut(10));
+        butTon.add(btnDangXuat);butTon.add(Box.createVerticalStrut(10));
         panelMenu.add(butTon,BorderLayout.NORTH);
         panelMenu.add(btnDangXuat,BorderLayout.SOUTH);
         btnDangXuat.addActionListener(new ActionListener() {
@@ -79,6 +94,18 @@ styleButton(btnPhieuXuat);
                 }
               
             }
+        });
+        btnHoaDon.addActionListener(e -> {
+            panelContent.removeAll();
+        
+            JTabbedPane tab = new JTabbedPane();
+            tab.add("Hóa đơn", new HoaDonGUI());
+            tab.add("Chi tiết HĐ", new ChiTietHoaDonGUI());
+        
+            panelContent.add(tab, BorderLayout.CENTER);
+        
+            panelContent.revalidate();
+            panelContent.repaint();
         });
         btnDoiTra.addActionListener(new ActionListener() {
             @Override
@@ -127,18 +154,30 @@ btnPhanQuyen.addActionListener(e -> {
                 panelContent.repaint();
             }
         });
-        btnKhachHang.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                new FormKhachHang();
-            }
+        btnNhanVien.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.add(new NhanvienGUI(Bus.session.quyen), BorderLayout.CENTER);
+            panelContent.revalidate();
+            panelContent.repaint();
         });
-        btnNhaCungCap.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                new FormNhaCungCap();
-            }
+        btnThongKe.addActionListener(e -> {
+            panelContent.removeAll();
+            panelContent.add(new ThongkeGUI(), BorderLayout.CENTER);
+            panelContent.revalidate();
+            panelContent.repaint();
         });
+        // btnKhachHang.addActionListener(new ActionListener(){
+        //     @Override
+        //     public void actionPerformed(ActionEvent e){
+        //         new FormKhachHang();
+        //     }
+        // });
+        // btnNhaCungCap.addActionListener(new ActionListener(){
+        //     @Override
+        //     public void actionPerformed(ActionEvent e){
+        //         new FormNhaCungCap();
+        //     }
+        // });
         //phần trên
         panelTop=new JPanel();
         panelTop.setLayout(new BorderLayout());
@@ -151,20 +190,12 @@ btnPhanQuyen.addActionListener(e -> {
         panelTop.add(lblTitle,BorderLayout.CENTER);
         panelContent =new JPanel();
         panelContent.setLayout(new BorderLayout());
-        JPanel dashboard = new JPanel(new GridLayout(2,2,20,20));
-dashboard.setBorder(BorderFactory.createEmptyBorder(20,40,20,40));
-
-dashboard.add(createCard("Tổng Sách","150"));
-dashboard.add(createCard("Khách Hàng", "80"));
-dashboard.add(createCard("Hóa Đơn", "45"));
-dashboard.add(createCard("Doanh Thu", "12,500,000 VNĐ"));
-
-panelContent.add(dashboard, BorderLayout.CENTER);
+        
       
             add(panelMenu, BorderLayout.WEST);
             add(panelTop, BorderLayout.NORTH);
             add(panelContent, BorderLayout.CENTER);
-    
+            loadDashboard();
             setVisible(true);
         
         if(session.quyen.equals("Quản Lý")){
@@ -199,6 +230,14 @@ panelContent.add(dashboard, BorderLayout.CENTER);
 
         return card;
     }
+    public void loadDashboard() {
+        panelContent.removeAll();
+    
+        panelContent.add(new ThongkeGUI(), BorderLayout.CENTER);
+    
+        panelContent.revalidate();
+        panelContent.repaint();
+    }
     public void styleButton(JButton btn){
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
@@ -206,8 +245,8 @@ panelContent.add(dashboard, BorderLayout.CENTER);
         btn.setForeground(Color.black);
         btn.setFont(new Font("Arial",Font.BOLD,14));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+        btn.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        btn.setPreferredSize(new Dimension(130, 40));
         btn.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e){
                 btn.setBackground(new Color(200,230,255));

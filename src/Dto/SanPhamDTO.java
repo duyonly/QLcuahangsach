@@ -11,11 +11,11 @@ public class SanPhamDTO{
     private int giaban;
     private int soluongton;
     private String mota;
-    private int trangthai;
+    private String trangthai;
     public SanPhamDTO(){};
     public SanPhamDTO(String masp, String tensp, String tentacgia, String matheloai,
                       String nhaxuatban, int namxuatban, int gianhap,
-                      int giaban, int soluongton, String mota, int trangthai){
+                      int giaban, int soluongton, String mota, String trangthai){
         this.masp = masp;
         this.tensp = tensp;
         this.tentacgia = tentacgia;
@@ -61,6 +61,6 @@ public class SanPhamDTO{
     public void setSoluongton(int soluongton){ this.soluongton = soluongton; }
     public String getMota(){ return mota; }
     public void setMota(String mota){ this.mota = mota; }
-    public int getTrangthai(){ return trangthai; }
-    public void setTrangthai(int trangthai){ this.trangthai = trangthai; }
+    public String getTrangthai(){ return trangthai; }
+    public void setTrangthai(String trangthai){ this.trangthai = trangthai; }
 }

@@ -19,7 +19,7 @@ public class NhanvienGUI extends JPanel {
 
     private NhanvienBus bus;
     private NhanvienModel currentUser;
-
+private String role;
     private JTable table;
     private DefaultTableModel model;
 
@@ -30,8 +30,8 @@ public class NhanvienGUI extends JPanel {
 
     private JButton btnThem, btnSua, btnXoa, btnTim, btnXuat;
 
-    public NhanvienGUI(NhanvienModel user) {
-        this.currentUser = user;
+    public NhanvienGUI(String user) {
+        this.role = user;
         bus = new NhanvienBus();
         setLayout(new BorderLayout(10,10));
 
@@ -294,7 +294,7 @@ public class NhanvienGUI extends JPanel {
     }
 
     private void phanQuyen(){
-        boolean isAdmin = currentUser.getChucVu().equalsIgnoreCase("Admin");
+        boolean isAdmin = role.equalsIgnoreCase("Admin");
         btnXoa.setVisible(isAdmin);
     }
     private void exportExcel(){
