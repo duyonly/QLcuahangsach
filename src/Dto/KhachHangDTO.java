@@ -1,27 +1,33 @@
 package Dto;
 
 public class KhachHangDTO {
-    private int MaKH;
+    private String MaKH;
     private String TenKH;
-    private String DiaChi;
+    private String GioiTinh;
     private String SDT;
     private String Email;
+    private String DiaChi;
+    private String LoaiKhachHang;
+    private int DiemTichLuy;
 
     public KhachHangDTO() {}
 
-    public KhachHangDTO(int MaKH, String TenKH, String DiaChi, String SDT, String Email) {
+    public KhachHangDTO(String MaKH, String TenKH, String DiaChi, String SDT, String Email) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
-        this.DiaChi = DiaChi;
+        this.GioiTinh = GioiTinh;
         this.SDT = SDT;
         this.Email = Email;
+        this.DiaChi = DiaChi;
+        this.LoaiKhachHang = LoaiKhachHang;
+        this.DiemTichLuy = DiemTichLuy;
     }
 
-    public int getMaKH() {
+    public String getMaKH() {
         return MaKH;
     }
 
-    public void setMaKH(int MaKH) {
+    public void setMaKH(String MaKH) {
         this.MaKH = MaKH;
     }
 
@@ -33,13 +39,9 @@ public class KhachHangDTO {
         this.TenKH = TenKH;
     }
 
-    public String getDiaChi() {
-        return DiaChi;
-    }
+    public String getGioiTinh() { return GioiTinh; }
 
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
-    }
+    public void setGioiTinh(String GioiTinh) { this.GioiTinh = GioiTinh; }
 
     public String getSDT() {
         return SDT;
@@ -56,5 +58,20 @@ public class KhachHangDTO {
     public void setEmail(String Email) {
         this.Email = Email;
     }
-}
 
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
+    }
+
+    public String getLoaiKhachHang() { return LoaiKhachHang; }
+
+    public void setLoaiKhachHang(String LoaiKhachHang) { this.LoaiKhachHang = LoaiKhachHang; }
+
+    public int getDiemTichLuy() { return DiemTichLuy; }
+
+    public void setDiemTichLuy(int DiemTichLuy) { this.DiemTichLuy = DiemTichLuy; }
+}

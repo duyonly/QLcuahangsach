@@ -6,8 +6,8 @@ import java.util.List;
 
 public class NhaCungCapBus {
     NhaCungCapDao dao = new NhaCungCapDao();
-    public List<NhaCungCapDTO> layTatCa(){
-        return dao.layTatCa();
+    public List<NhaCungCapDTO> hienDanhSach(){
+        return dao.hienDanhSach();
     }
     public List<NhaCungCapDTO> timKiem(String tuKhoa){
         return dao.timKiem(tuKhoa);
@@ -15,10 +15,13 @@ public class NhaCungCapBus {
     public boolean them(NhaCungCapDTO n){
         return dao.them(n);
     }
-    public boolean capNhat(NhaCungCapDTO n){
-        return dao.capNhat(n);
+    public boolean sua(NhaCungCapDTO n){
+        return dao.sua(n);
     }
     public boolean xoa(int MaNCC){
         return dao.xoa(MaNCC);
+    }
+    public NhaCungCapDTO xemChiTiet(int MaNCC){
+        return dao.xemChiTiet(MaNCC);
     }
 }

@@ -1,52 +1,36 @@
 package Dto;
 
 public class NhaCungCapDTO {
-    private int MaNCC;
+    private String MaNCC;
     private String TenNCC;
-    private String DiaChi;
-    private String SDT;
+    private String DienThoai;
     private String Email;
+    private String DiaChi;
 
     public NhaCungCapDTO() {}
 
-    public NhaCungCapDTO(int MaNCC, String TenNCC, String DiaChi, String SDT, String Email) {
+    public NhaCungCapDTO(String MaNCC, String TenNCC, String DiaChi, String SDT, String Email) {
         this.MaNCC = MaNCC;
         this.TenNCC = TenNCC;
-        this.DiaChi = DiaChi;
-        this.SDT = SDT;
+        this.DienThoai = DienThoai;
         this.Email = Email;
-    }
-
-    public int getMaNCC() {
-        return MaNCC;
-    }
-
-    public void setMaNCC(int MaNCC) {
-        this.MaNCC = MaNCC;
-    }
-
-    public String getTenNCC() {
-        return TenNCC;
-    }
-
-    public void setTenNCC(String TenNCC) {
-        this.TenNCC = TenNCC;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
         this.DiaChi = DiaChi;
     }
 
-    public String getSDT() {
-        return SDT;
+    public String getMaNCC() { return MaNCC; }
+
+    public void setMaNCC(String MaNCC) { this.MaNCC = MaNCC; }
+
+    public String getTenNCC() { return TenNCC; }
+
+    public void setTenNCC(String TenNCC) { this.TenNCC = TenNCC; }
+
+    public String getDienThoai() {
+        return DienThoai;
     }
 
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
+    public void setDienThoai(String DienThoai) {
+        this.DienThoai = DienThoai;
     }
 
     public String getEmail() {
@@ -56,5 +40,9 @@ public class NhaCungCapDTO {
     public void setEmail(String Email) {
         this.Email = Email;
     }
+
+    public String getDiaChi() { return DiaChi; }
+
+    public void setDiaChi(String DiaChi) { this.DiaChi = DiaChi; }
 }
 

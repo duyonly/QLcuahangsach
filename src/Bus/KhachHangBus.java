@@ -6,8 +6,8 @@ import java.util.List;
 
 public class KhachHangBus {
     KhachHangDao dao = new KhachHangDao();
-    public List<KhachHangDTO> layTatCa(){
-        return dao.layTatCa();
+    public List<KhachHangDTO> hienDanhSach(){
+        return dao.hienDanhSach();
     }
     public List<KhachHangDTO> timKiem(String tuKhoa){
         return dao.timKiem(tuKhoa);
@@ -15,10 +15,13 @@ public class KhachHangBus {
     public boolean them(KhachHangDTO k){
         return dao.them(k);
     }
-    public boolean capNhat(KhachHangDTO k){
-        return dao.capNhat(k);
+    public boolean sua(KhachHangDTO k){
+        return dao.sua(k);
     }
     public boolean xoa(int MaKH){
         return dao.xoa(MaKH);
+    }
+    public KhachHangDTO xemChiTiet(int MaKH){
+        return dao.xemChiTiet(MaKH);
     }
 }
