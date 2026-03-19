@@ -1,6 +1,6 @@
 package Bus;
-import Dao.DanhMucChucNangDAO;
-import Dto.DanhMucChucNangDTO;
+import Dao.*;
+import Dto.*;
 import java.util.ArrayList;
 
 public class DanhMucChucNangBUS {

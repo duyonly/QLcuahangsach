@@ -1,6 +1,6 @@
 package Bus;
-import Dao.ChiTietQuyenDAO;
-import Dto.ChiTietQuyenDTO;
+import Dao.*;
+import  Dto.*;
 import java.util.ArrayList;
 
 public class ChiTietQuyenBUS {

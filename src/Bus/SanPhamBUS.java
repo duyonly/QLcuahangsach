@@ -1,4 +1,4 @@
-package BUS;
+package Bus;
 
 import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
