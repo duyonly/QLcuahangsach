@@ -5,8 +5,8 @@ import Dto.PhieuNhapDTO;
 import Dto.CtPhieuNhapDTO;
 
 // Import thêm thư viện Sản Phẩm 
-import BUS.SanPhamBUS;
-import DTO.SanPhamDTO;
+import Bus.SanPhamBUS;
+import Dto.SanPhamDTO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

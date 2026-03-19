@@ -13,7 +13,7 @@ public class ChiTietQuyenDAO {
         ArrayList<ChiTietQuyenDTO> list = new ArrayList<>();
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT * FROM CTQUYEN WHERE manhomquyen = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, maNhomQuyen);
@@ -28,7 +28,7 @@ public class ChiTietQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return list;
     }
@@ -37,7 +37,7 @@ public class ChiTietQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "INSERT INTO CTQUYEN (manhomquyen, machucnang, hanhdong) VALUES (?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, ct.getMaNhomQuyen());
@@ -47,7 +47,7 @@ public class ChiTietQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }
@@ -56,7 +56,7 @@ public class ChiTietQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "UPDATE CTQUYEN SET hanhdong = ? WHERE manhomquyen = ? AND machucnang = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, ct.getHanhDong());
@@ -66,7 +66,7 @@ public class ChiTietQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }
@@ -75,7 +75,7 @@ public class ChiTietQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "DELETE FROM CTQUYEN WHERE manhomquyen = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, maNhomQuyen);
@@ -83,7 +83,7 @@ public class ChiTietQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }

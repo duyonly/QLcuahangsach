@@ -14,7 +14,7 @@ public class PhieuNhapDAO {
         String lastMa = null;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT maphieunhap FROM PHIEU_NHAP ORDER BY maphieunhap DESC LIMIT 1";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -22,7 +22,7 @@ public class PhieuNhapDAO {
                 lastMa = rs.getString("maphieunhap");
             }
         } finally {
-            JDBCUtil.closeConnection(con); 
+            ConnectDB.close(con); 
         }
         return lastMa;
     }
@@ -32,7 +32,7 @@ public class PhieuNhapDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();  
+            con = ConnectDB.getConnection();  
             String sql = "INSERT INTO PHIEU_NHAP (maphieunhap, thoigian, trangthai, manhacungcap, nguoitaophieunhap) "
                        + "VALUES (?, ?, ?, ?, ?)";
             
@@ -46,7 +46,7 @@ public class PhieuNhapDAO {
             ketQua = pst.executeUpdate();
             
         } finally {
-            JDBCUtil.closeConnection(con);  
+            ConnectDB.close(con);  
         }
         return ketQua;
     }
@@ -56,7 +56,7 @@ public class PhieuNhapDAO {
         ArrayList<PhieuNhapDTO> ketQua = new ArrayList<>();
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT * FROM PHIEU_NHAP";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -71,7 +71,7 @@ public class PhieuNhapDAO {
                 ketQua.add(pn);
             }
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }

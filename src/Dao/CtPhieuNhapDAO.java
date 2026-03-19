@@ -13,7 +13,7 @@ public class CtPhieuNhapDAO {
         Connection con = null;
         PreparedStatement pst = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             con.setAutoCommit(false); 
             
             String sql = "INSERT INTO CT_PHIEUNHAP (maphieunhap, masanpham, soluong, dongia) VALUES (?, ?, ?, ?)";
@@ -37,7 +37,7 @@ public class CtPhieuNhapDAO {
             }
             throw e; // RẤT QUAN TRỌNG: Ném thẳng lỗi lên trên BUS để xử lý
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }

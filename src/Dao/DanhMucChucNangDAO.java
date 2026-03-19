@@ -14,7 +14,7 @@ public class DanhMucChucNangDAO {
         ArrayList<DanhMucChucNangDTO> list = new ArrayList<>();
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT * FROM DANHMUCCHUCNANG";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -27,7 +27,7 @@ public class DanhMucChucNangDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return list;
     }

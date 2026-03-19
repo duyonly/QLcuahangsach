@@ -15,7 +15,7 @@ public class NhomQuyenDAO {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT * FROM NhomQuyen";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -28,7 +28,7 @@ public class NhomQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return list;
     }
@@ -37,7 +37,7 @@ public class NhomQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "INSERT INTO NhomQuyen (manhomquyen, tennhomquyen) VALUES (?, ?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nq.getMaNhomQuyen());
@@ -46,7 +46,7 @@ public class NhomQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }
@@ -55,7 +55,7 @@ public class NhomQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "UPDATE NhomQuyen SET tennhomquyen = ? WHERE manhomquyen = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nq.getTenNhomQuyen());
@@ -64,7 +64,7 @@ public class NhomQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }
@@ -73,7 +73,7 @@ public class NhomQuyenDAO {
         int ketQua = 0;
         Connection con = null;
         try {
-            con = JDBCUtil.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "DELETE FROM NhomQuyen WHERE manhomquyen = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, maNhomQuyen);
@@ -81,7 +81,7 @@ public class NhomQuyenDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtil.closeConnection(con);
+            ConnectDB.close(con);
         }
         return ketQua;
     }
