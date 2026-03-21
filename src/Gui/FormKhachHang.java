@@ -67,7 +67,7 @@
 //                 JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để sửa");
 //                 return;
 //             }
-//             int ma = Integer.parseInt(model.getValueAt(idx,0).toString());
+//             String ma = model.getValueAt(idx,0).toString();
 //             String ten = model.getValueAt(idx,1).toString();
 //             String diachi = model.getValueAt(idx,2).toString();
 //             String sdt = model.getValueAt(idx,3).toString();

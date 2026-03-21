@@ -18,10 +18,10 @@ public class NhaCungCapBus {
     public boolean sua(NhaCungCapDTO n){
         return dao.sua(n);
     }
-    public boolean xoa(int MaNCC){
+    public boolean xoa(String MaNCC){
         return dao.xoa(MaNCC);
     }
-    public NhaCungCapDTO xemChiTiet(int MaNCC){
+    public NhaCungCapDTO xemChiTiet(String MaNCC){
         return dao.xemChiTiet(MaNCC);
     }
 }

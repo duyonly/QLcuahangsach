@@ -3,7 +3,7 @@ package Dto;
 public class NhaCungCapDTO {
     private String MaNCC;
     private String TenNCC;
-    private String DienThoai;
+    private String SDT;
     private String Email;
     private String DiaChi;
 
@@ -12,7 +12,7 @@ public class NhaCungCapDTO {
     public NhaCungCapDTO(String MaNCC, String TenNCC, String DiaChi, String SDT, String Email) {
         this.MaNCC = MaNCC;
         this.TenNCC = TenNCC;
-        this.DienThoai = DienThoai;
+        this.SDT = SDT;
         this.Email = Email;
         this.DiaChi = DiaChi;
     }
@@ -26,11 +26,11 @@ public class NhaCungCapDTO {
     public void setTenNCC(String TenNCC) { this.TenNCC = TenNCC; }
 
     public String getDienThoai() {
-        return DienThoai;
+        return SDT;
     }
 
-    public void setDienThoai(String DienThoai) {
-        this.DienThoai = DienThoai;
+    public void setDienThoai(String SDT) {
+        this.SDT=SDT;
     }
 
     public String getEmail() {

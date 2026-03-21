@@ -46,7 +46,7 @@ panelMenu.add(scrollPane, BorderLayout.CENTER);
         btnHoaDon = new JButton("Hóa Đơn");
         btnThongKe = new JButton("Thống Kê");
         btnPhieuNhap=new JButton("phiếu nhập");
-        btnPhieuXuat=new JButton("phiếu xuất");
+       
         btnDoiTra = new JButton("Đổi Trả");
         btnPhanQuyen = new JButton("phân quyền");
         btnDangXuat = new JButton("Đăng Xuất");
@@ -67,7 +67,7 @@ styleButton(btnDoiTra);
 styleButton(btnDangXuat);
 styleButton(btnSach);
 styleButton(btnPhanQuyen);
-styleButton(btnPhieuXuat);
+ 
 
         butTon.add(btnSach);
         butTon.add(Box.createVerticalStrut(10));
@@ -76,7 +76,7 @@ styleButton(btnPhieuXuat);
         butTon.add(btnTaiKhoan);butTon.add(Box.createVerticalStrut(10));
         butTon.add(btnHoaDon);butTon.add(Box.createVerticalStrut(10));
         butTon.add(btnThongKe);butTon.add(Box.createVerticalStrut(10));
-        butTon.add(btnPhieuXuat);butTon.add(Box.createVerticalStrut(10));
+        
         butTon.add(btnPhanQuyen);butTon.add(Box.createVerticalStrut(10));
         butTon.add(btnNhaCungCap);butTon.add(Box.createVerticalStrut(10));
         butTon.add(btnPhieuNhap);butTon.add(Box.createVerticalStrut(10));
@@ -138,12 +138,12 @@ btnPhanQuyen.addActionListener(e -> {
             panelContent.repaint();
         });
         
-        btnPhieuXuat.addActionListener(e -> {
-            panelContent.removeAll();
-            panelContent.add(new PhieuXuatGUI(), BorderLayout.CENTER); // Đảm bảo PhieuXuatGUI cũng đã đổi sang JPanel
-            panelContent.revalidate();
-            panelContent.repaint();
-        });
+        // btnPhieuXuat.addActionListener(e -> {
+        //     panelContent.removeAll();
+        //     panelContent.add(new PhieuXuatGUI(), BorderLayout.CENTER); // Đảm bảo PhieuXuatGUI cũng đã đổi sang JPanel
+        //     panelContent.revalidate();
+        //     panelContent.repaint();
+        // });
         btnTaiKhoan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

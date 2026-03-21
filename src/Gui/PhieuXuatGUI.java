@@ -1,125 +1,179 @@
-package Gui;
+// package Gui;
 
-import Bus.PhieuXuatBUS;
-import Dto.PhieuXuatDTO;
+// import Bus.PhieuXuatBUS;
+// import Dto.PhieuXuatDTO;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.Date;
+// import javax.swing.*;
+// import javax.swing.table.DefaultTableModel;
+// import java.awt.*;
+// import java.awt.event.*;
+// import java.util.*;
 
-public class PhieuXuatGUI extends JPanel {
+// public class PhieuXuatGUI extends JFrame {
 
-    JTextField txtMa, txtTrangThai, txtNguoiTao, txtMaKH;
-    JTable table;
-    DefaultTableModel model;
-    PhieuXuatBUS bus = new PhieuXuatBUS();
+//     JTextField txtMa, txtTrangThai, txtNguoiTao, txtMaKH;
+//     JTable table;
+//     DefaultTableModel model;
+//     PhieuXuatBUS bus = new PhieuXuatBUS();
+    
+//     public PhieuXuatGUI() {
 
-    public PhieuXuatGUI() {
-        // QUAN TRỌNG: Sét Layout cho JPanel chính
-        this.setLayout(new BorderLayout(10, 10));
+//         setTitle("Quản Lý Phiếu Xuất");
+//         setSize(900, 500);
+//         setLocationRelativeTo(null);
+//         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== PANEL NHẬP LIỆU (BÊN TRÁI) =====
-        JPanel panelLeft = new JPanel(new GridLayout(5, 2, 5, 5));
-        panelLeft.setBorder(BorderFactory.createTitledBorder("Thông tin phiếu xuất"));
-        
-        panelLeft.add(new JLabel("Mã Phiếu Xuất:"));
-        txtMa = new JTextField();
-        panelLeft.add(txtMa);
+//         // ===== FORM =====
+//         JPanel panel = new JPanel(new GridLayout(5,2,5,5));
 
-        panelLeft.add(new JLabel("Trạng Thái:"));
-        txtTrangThai = new JTextField();
-        panelLeft.add(txtTrangThai);
+//         panel.add(new JLabel("Mã Phiếu Xuất"));
+//         txtMa = new JTextField();
+//         panelLeft.add(txtMa);
 
-        panelLeft.add(new JLabel("Người Tạo:"));
-        txtNguoiTao = new JTextField();
-        panelLeft.add(txtNguoiTao);
+//         panelLeft.add(new JLabel("Trạng Thái:"));
+//         txtTrangThai = new JTextField();
+//         panelLeft.add(txtTrangThai);
 
-        panelLeft.add(new JLabel("Mã Khách Hàng:"));
-        txtMaKH = new JTextField();
-        panelLeft.add(txtMaKH);
-        
-        // Bọc panelLeft vào một panel khác để tránh nó bị kéo giãn quá cao
-        JPanel wrapLeft = new JPanel(new BorderLayout());
-        wrapLeft.add(panelLeft, BorderLayout.NORTH);
-        this.add(wrapLeft, BorderLayout.WEST);
+//         panelLeft.add(new JLabel("Người Tạo:"));
+//         txtNguoiTao = new JTextField();
+//         panelLeft.add(txtNguoiTao);
 
-        // ===== BẢNG DỮ LIỆU (Ở GIỮA) =====
-        model = new DefaultTableModel();
-        model.setColumnIdentifiers(new String[]{
-                "Mã PX", "Thời Gian", "Trạng Thái", "Người Tạo", "Mã KH"
-        });
-        table = new JTable(model);
-        JScrollPane sp = new JScrollPane(table);
-        this.add(sp, BorderLayout.CENTER);
+//         panelLeft.add(new JLabel("Mã Khách Hàng:"));
+//         txtMaKH = new JTextField();
+//         panel.add(txtMaKH);
 
-        // ===== PANEL NÚT BẤM (PHÍA DƯỚI) =====
-        JButton btnThem = new JButton("Thêm");
-        JButton btnXoa = new JButton("Xóa");
-        JButton btnLoad = new JButton("Làm mới");
-        JButton btnChiTiet = new JButton("Xem Chi Tiết");
+//         add(panel, BorderLayout.WEST);
 
-        JPanel pBtn = new JPanel();
-        pBtn.add(btnThem);
-        pBtn.add(btnXoa);
-        pBtn.add(btnLoad);
-        pBtn.add(btnChiTiet);
-        this.add(pBtn, BorderLayout.SOUTH);
+//         // ===== TABLE =====
+//         model = new DefaultTableModel();
+//         model.setColumnIdentifiers(new String[]{
+//                 "Mã PX", "Thời Gian", "Trạng Thái", "Người Tạo", "Mã KH"
+//         });
+//         table = new JTable(model);
+//         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ===== XỬ LÝ SỰ KIỆN =====
-        btnLoad.addActionListener(e -> loadData());
+//         // ===== BUTTON =====
+//         JButton btnThem = new JButton("Thêm");
+//         JButton btnXoa = new JButton("Xóa");
+//         JButton btnLoad = new JButton("Làm mới");
+//         JButton btnChiTiet = new JButton("Xem Chi Tiết");
 
-        btnThem.addActionListener(e -> {
-            PhieuXuatDTO px = new PhieuXuatDTO();
-            px.setMaphieuxuat(txtMa.getText());
-            px.setTrangthai(txtTrangThai.getText());
-            px.setNguoitaophieuxuat(txtNguoiTao.getText());
-            px.setMakhachhang(txtMaKH.getText());
-            px.setThoigian(new Date());
+//         JPanel p = new JPanel();
+//         p.add(btnThem);
+//         p.add(btnXoa);
+//         p.add(btnLoad);
+//         p.add(btnChiTiet);
 
-            if(bus.add(px)) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công!");
-                loadData();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại!");
-            }
-        });
+//         add(p, BorderLayout.SOUTH);
 
-        btnXoa.addActionListener(e -> {
-            String ma = txtMa.getText();
-            if(ma.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập mã để xóa");
-                return;
-            }
-            bus.delete(ma);
-            loadData();
-        });
+//         // ===== EVENT =====
 
-        btnChiTiet.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(this, "Hãy chọn một phiếu xuất trong bảng!");
-                return;
-            }
-            String maPX = table.getValueAt(row, 0).toString();
-            // Đảm bảo class ChiTietPhieuXuatGUI là một JDialog hoặc JFrame
-            new ChiTietPhieuXuatGUI(maPX).setVisible(true);
-        });
-        
-        // Load dữ liệu lần đầu khi mở tab
-        loadData();
-    }
+//         // Load data
+//         btnLoad.addActionListener(e -> loadData());
 
-    void loadData() {
-        model.setRowCount(0);
-        for (PhieuXuatDTO px : bus.getAll()) {
-            model.addRow(new Object[]{
-                    px.getMaphieuxuat(),
-                    px.getThoigian(),
-                    px.getTrangthai(),
-                    px.getNguoitaophieuxuat(),
-                    px.getMakhachhang()
-            });
-        }
-    }
-}
+//         // Thêm
+//         btnThem.addActionListener(e -> {
+//             if(txtMa.getText().isEmpty()){
+//                 JOptionPane.showMessageDialog(this,"Không được để trống mã!");
+//                 return;
+//             }
+
+//             PhieuXuatDTO px = new PhieuXuatDTO();
+//             px.setMaphieuxuat(txtMa.getText());
+//             px.setTrangthai(txtTrangThai.getText());
+//             px.setNguoitaophieuxuat(txtNguoiTao.getText());
+//             px.setMakhachhang(txtMaKH.getText());
+//             px.setThoigian(new Date());
+
+//             if(bus.add(px)){
+//                 JOptionPane.showMessageDialog(this,"Thêm thành công!");
+//                 loadData();
+//                 clearForm();
+//             }else{
+//                 JOptionPane.showMessageDialog(this,"Thêm thất bại!");
+//             }
+//         });
+
+//         // Xóa (soft delete khuyên dùng)
+//         btnXoa.addActionListener(e -> {
+//             int row = table.getSelectedRow();
+
+//             if(row == -1){
+//                 JOptionPane.showMessageDialog(this,"Chọn dòng cần xóa!");
+//                 return;
+//             }
+
+//             String ma = table.getValueAt(row,0).toString();
+
+//             int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc muốn xóa?");
+//             if(confirm == JOptionPane.YES_OPTION){
+
+//                 if(bus.delete(ma)){
+//                     JOptionPane.showMessageDialog(this,"Xóa thành công!");
+//                     loadData();
+//                 }else{
+//                     JOptionPane.showMessageDialog(this,"Xóa thất bại!");
+//                 }
+//             }
+//         });
+
+//         // Click table → fill form
+//         table.addMouseListener(new MouseAdapter() {
+//             public void mouseClicked(MouseEvent e){
+//                 int row = table.getSelectedRow();
+
+//                 txtMa.setText(String.valueOf(model.getValueAt(row,0)));
+//                 txtTrangThai.setText(String.valueOf(model.getValueAt(row,2)));
+//                 txtNguoiTao.setText(String.valueOf(model.getValueAt(row,3)));
+//                 txtMaKH.setText(String.valueOf(model.getValueAt(row,4)));
+//             }
+//         });
+
+//         // Xem chi tiết
+//         btnChiTiet.addActionListener(e -> {
+//             int row = table.getSelectedRow();
+
+//             if(row == -1){
+//                 JOptionPane.showMessageDialog(this,"Hãy chọn phiếu xuất");
+//                 return;
+//             }
+
+//             String maPX = table.getValueAt(row,0).toString();
+//             new ChiTietPhieuXuatGUI(maPX);
+//         });
+
+//         // Load ngay khi mở
+//         loadData();
+
+//         setVisible(true);
+//     }
+
+//     void loadData(){
+//         model.setRowCount(0);
+
+//         for(PhieuXuatDTO px : bus.getAll()){
+//             model.addRow(new Object[]{
+//                     px.getMaphieuxuat(),
+//                     px.getThoigian(),
+//                     px.getTrangthai(),
+//                     px.getNguoitaophieuxuat(),
+//                     px.getMakhachhang()
+//             });
+//         }
+//     }
+
+//     void clearForm(){
+//         txtMa.setText("");
+//         txtTrangThai.setText("");
+//         txtNguoiTao.setText("");
+//         txtMaKH.setText("");
+//     }
+//     public static void main(String[] args) {
+//     SwingUtilities.invokeLater(new Runnable() {
+//         @Override
+//         public void run() {
+//             new PhieuXuatGUI();
+//         }
+//     });
+// }
+// }

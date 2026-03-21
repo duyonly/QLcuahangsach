@@ -18,7 +18,7 @@ public class NhanvienBus{
     }
     //Lay danh sach
     public List<NhanvienModel> getAll(){
-        return listNV;
+        return dao.selectAll();
     }
     public void refresh(){
         listNV = dao.selectAll();

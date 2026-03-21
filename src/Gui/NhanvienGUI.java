@@ -37,7 +37,7 @@ private String role;
 
         add(createFormPanel(), BorderLayout.NORTH);
         add(createTablePanel(), BorderLayout.CENTER);
-
+        bus.refresh();
         loadTable();
         phanQuyen();
     }

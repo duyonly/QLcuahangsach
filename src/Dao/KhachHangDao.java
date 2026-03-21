@@ -102,7 +102,7 @@ public class KhachHangDao {
         return false;
     }
 
-    public KhachHangDTO xemChiTiet(int MaKH){
+    public KhachHangDTO xemChiTiet(String MaKH){
         String sql = "SELECT MaKH,TenKH,GioiTinh,SDT,Email,DiaChi,LoaiKhachHang,DiemTichLuy FROM khachhang WHERE MaKH=?";
         try(Connection con = ConnectDB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)){
             stmt.setString(1, MaKH);
