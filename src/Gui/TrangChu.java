@@ -63,16 +63,16 @@ public class TrangChu extends JFrame{
         panelContent.add(createCard("Khách Hàng", "80"));
         panelContent.add(createCard("Hóa Đơn", "45"));
         panelContent.add(createCard("Doanh Thu", "12,500,000 VNĐ"));
-      
-            add(panelMenu, BorderLayout.WEST);
-            add(panelTop, BorderLayout.NORTH);
-            add(panelContent, BorderLayout.CENTER);
-    
-            setVisible(true);
-        
-        
+
+        add(panelMenu, BorderLayout.WEST);
+        add(panelTop, BorderLayout.NORTH);
+        add(panelContent, BorderLayout.CENTER);
+
+        setVisible(true);
+
+
     }
-//hàm tạo thẻ thốn kế
+    //hàm tạo thẻ thốn kế
     private JPanel createCard(String title,String value ){
         JPanel card = new JPanel();
         card.setBackground(new Color(240, 240, 240));

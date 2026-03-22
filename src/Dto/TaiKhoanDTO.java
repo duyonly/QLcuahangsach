@@ -1,24 +1,24 @@
 package Dto;
 
 public class TaiKhoanDTO {
-    private String Ten;
+    private String TenDangNhap;
     private String MatKhau;
     private String Email;
     public TaiKhoanDTO(){};
-    public TaiKhoanDTO(String Ten,String MatKhau,String Email){
-        this.Ten=Ten;
+    public TaiKhoanDTO(String TenDangNhap,String MatKhau,String Email){
+        this.TenDangNhap=TenDangNhap;
         this.MatKhau=MatKhau;
         this.Email=Email;
     }
-    public String getTen(){
-        return Ten;
+    public String getTenDangNhap(){
+        return TenDangNhap;
     }
-    public void setTen(String Ten){
-        this.Ten=Ten;
+    public void setTenDangNhap(String TenDangNhap){
+        this.TenDangNhap=TenDangNhap;
     }
     public String getMatKhau(){
         return MatKhau;
-    } 
+    }
     public void setMatKhau(String MatKhau){
         this.MatKhau=MatKhau;
     }

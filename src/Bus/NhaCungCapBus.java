@@ -18,7 +18,7 @@ public class NhaCungCapBus {
     public boolean sua(NhaCungCapDTO n){
         return dao.sua(n);
     }
-    public boolean xoa(int MaNCC){
+    public boolean xoa(String MaNCC){
         return dao.xoa(MaNCC);
     }
     public NhaCungCapDTO xemChiTiet(String MaNCC){

@@ -15,7 +15,7 @@ public class NhaCungCapDao {
                 NhaCungCapDTO n=new NhaCungCapDTO();
                 n.setMaNCC(rs.getString("MaNCC"));
                 n.setTenNCC(rs.getString("TenNCC"));
-                n.setSDT(rs.getString("DienThoai"));
+                n.setDienThoai(rs.getString("DienThoai"));
                 n.setEmail(rs.getString("Email"));
                 n.setDiaChi(rs.getString("DiaChi"));
                 list.add(n);

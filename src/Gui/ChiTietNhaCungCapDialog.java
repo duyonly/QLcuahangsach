@@ -22,7 +22,7 @@ public class ChiTietNhaCungCapDialog extends JDialog {
         JTextField txtDiaChi = new JTextField(n.getDiaChi()==null?"":n.getDiaChi()); txtDiaChi.setBounds(120,100,240,25); txtDiaChi.setEditable(false); add(txtDiaChi);
 
         JLabel lblSDT = new JLabel("SĐT:"); lblSDT.setBounds(20,140,100,25); add(lblSDT);
-        JTextField txtSDT = new JTextField(n.getSDT()==null?"":n.getSDT()); txtSDT.setBounds(120,140,240,25); txtSDT.setEditable(false); add(txtSDT);
+        JTextField txtSDT = new JTextField(n.getDienThoai()==null?"":n.getDienThoai()); txtSDT.setBounds(120,140,240,25); txtSDT.setEditable(false); add(txtSDT);
 
         JLabel lblEmail = new JLabel("Email:"); lblEmail.setBounds(20,180,100,25); add(lblEmail);
         JTextField txtEmail = new JTextField(n.getEmail()==null?"":n.getEmail()); txtEmail.setBounds(120,180,240,25); txtEmail.setEditable(false); add(txtEmail);

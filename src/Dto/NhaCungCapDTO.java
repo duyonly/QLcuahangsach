@@ -33,13 +33,11 @@ public class NhaCungCapDTO {
         this.DienThoai = DienThoai;
     }
 
-    public String getEmail() {
-return Email }
+    public String getEmail() { return Email; }
 
     public void setEmail(String Email) { this.Email = Email; }
 
-    public String getDiaChi() { return DiaChi }
+    public String getDiaChi() { return DiaChi; }
 
     public void setDiaChi(String DiaChi) { this.DiaChi = DiaChi; }
 }
-

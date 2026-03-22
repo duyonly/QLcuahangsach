@@ -9,20 +9,20 @@ public class ConnectDB {
     private static final String user="root";
     private static final String password="";
     //lấy kết nối
-public static Connection getConnection() throws SQLException{
-    try{
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    public static Connection getConnection() throws SQLException{
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }
+        catch(ClassNotFoundException e){
+            System.out.print("không thể kết nối đc");
+        }
+        return DriverManager.getConnection(url,user,password);
     }
-    catch(ClassNotFoundException e){
-        System.out.print("không thể kết nối đc");
+    public static void close(Connection con){
+        try{
+            if(con != null) con.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
-    return DriverManager.getConnection(url,user,password);
-}
-public static void close(Connection con){
-    try{
-          if(con != null) con.close();
-    }catch(SQLException ex){
-        ex.printStackTrace();
-    }
-}
 }

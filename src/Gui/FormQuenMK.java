@@ -16,7 +16,7 @@ import Bus.TaiKhoanBus;
 import Dto.TaiKhoanDTO;
 
 public class FormQuenMK {
-    
+
     JFrame main;
     JTextField txtUser, txtEmail;
     JPasswordField txtNewPass;
@@ -88,7 +88,7 @@ public class FormQuenMK {
             return;
         }
         TaiKhoanDTO tk=new TaiKhoanDTO();
-        tk.setTen(user);
+        tk.setTenDangNhap(user);
         tk.setEmail(email);
         tk.setMatKhau(newPass);
         TaiKhoanBus Bus=new TaiKhoanBus();
